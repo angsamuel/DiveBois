@@ -7,6 +7,7 @@ public class TunnelGenerator : MonoBehaviour {
 	public int tunnelWidth;
 	public int tunnelHeight;
 	public int generationDistance;
+	public float minSlice, maxSlice;
 
 
 	public int tunnelBlockSize;
@@ -22,6 +23,7 @@ public class TunnelGenerator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		blocks = new List<GameObject> ();
+		StartCoroutine (PlaceObstacles());
 		StartCoroutine (PlaceBlocks());
 	}
 	
@@ -29,7 +31,17 @@ public class TunnelGenerator : MonoBehaviour {
 	void Update () {
 		
 	}
+	IEnumerator PlaceObstacles(){
+		while (tunnelActive) {
 
+			yield return new WaitForSeconds (5);
+			float shipZ = ship.transform.position.z;
+
+			Debug.Log ("placed obstacle");
+			GameObject newBlockLeft = GameObject.Instantiate (tunnelBlock, new Vector3 (Random.Range (-tunnelWidth, tunnelWidth), Random.Range (-tunnelHeight, tunnelHeight), shipZ + generationDistance), Quaternion.identity);
+			newBlockLeft.transform.localScale = new Vector3 (200, tunnelBlockSize / 1.5f, tunnelBlockSize);
+		}
+	}
 	IEnumerator PlaceBlocks(){
 		while (tunnelActive) {
 			yield return new WaitForSeconds (.005f);
@@ -40,16 +52,16 @@ public class TunnelGenerator : MonoBehaviour {
 
 			if (blocks.Count < blockLimit) {
 				GameObject newBlockLeft = GameObject.Instantiate (tunnelBlock, new Vector3 (-tunnelWidth, Random.Range(-tunnelHeight, tunnelHeight), shipZ + generationDistance), Quaternion.identity);
-				newBlockLeft.transform.localScale = new Vector3 (Random.Range(1,5), tunnelBlockSize, tunnelBlockSize);
+				newBlockLeft.transform.localScale = new Vector3 (Random.Range(minSlice,maxSlice), tunnelBlockSize, tunnelBlockSize);
 
 				GameObject newBlockRight = GameObject.Instantiate (tunnelBlock, new Vector3 (tunnelWidth, Random.Range(-tunnelHeight, tunnelHeight), shipZ + generationDistance), Quaternion.identity);
-				newBlockRight.transform.localScale = new Vector3 (Random.Range(1,5),tunnelBlockSize,tunnelBlockSize);
+				newBlockRight.transform.localScale = new Vector3 (Random.Range(minSlice,maxSlice),tunnelBlockSize,tunnelBlockSize);
 
 				GameObject newBlockUp = GameObject.Instantiate (tunnelBlock, new Vector3 (Random.Range(-tunnelWidth, tunnelWidth), tunnelHeight, shipZ + generationDistance), Quaternion.identity);
-				newBlockUp.transform.localScale = new Vector3 (tunnelBlockSize, Random.Range(1,5),tunnelBlockSize);
+				newBlockUp.transform.localScale = new Vector3 (tunnelBlockSize, Random.Range(minSlice,maxSlice),tunnelBlockSize);
 
 				GameObject newBlockDown = GameObject.Instantiate (tunnelBlock, new Vector3 (Random.Range(-tunnelWidth, tunnelWidth),-tunnelHeight, shipZ + generationDistance), Quaternion.identity);
-				newBlockDown.transform.localScale = new Vector3 (tunnelBlockSize, Random.Range(1,5),tunnelBlockSize);
+				newBlockDown.transform.localScale = new Vector3 (tunnelBlockSize, Random.Range(minSlice,maxSlice),tunnelBlockSize);
 
 				blocks.Add (newBlockLeft); blocks.Add (newBlockRight); blocks.Add (newBlockUp); blocks.Add (newBlockDown);
 			} else {
