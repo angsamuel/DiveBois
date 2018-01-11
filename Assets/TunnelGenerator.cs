@@ -46,8 +46,8 @@ public class TunnelGenerator : MonoBehaviour {
 		while (tunnelActive) {
 			yield return new WaitForSeconds (.005f);
 
-			float shipX = ship.transform.position.x;
-			float shipY = ship.transform.position.y;
+			//float shipX = ship.transform.position.x;
+			//float shipY = ship.transform.position.y;
 			float shipZ = ship.transform.position.z;
 
 			if (blocks.Count < blockLimit) {

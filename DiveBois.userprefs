@@ -1,9 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TunnelGenerator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PlayerInfoHolder.cs">
     <Files>
-      <File FileName="Assets\TunnelGenerator.cs" Line="20" Column="24" />
-      <File FileName="Assets\Ship.cs" Line="46" Column="3" />
+      <File FileName="Assets/MainMenuController.cs" Line="46" Column="2" />
+      <File FileName="Assets/StatHighlight.cs" Line="22" Column="18" />
+      <File FileName="Assets/Scripts/Boi.cs" Line="25" Column="35" />
+      <File FileName="Assets/CameraController.cs" Line="105" Column="1" />
+      <File FileName="Assets/TunnelGenerator.cs" Line="40" Column="34" />
+      <File FileName="Assets/PlayerInfoHolder.cs" Line="19" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
