@@ -22,6 +22,19 @@ public class CameraController : MonoBehaviour {
 	Quaternion originalRotation;
 	void Update ()
 	{
+
+		//lock mouse cursor
+		/*
+		if (Input.GetKey (KeyCode.Escape)) {
+			Screen.lockCursor = false;
+			Cursor.visible = true;
+		} else {
+			Cursor.lockState = CursorLockMode.Locked;
+			Cursor.lockState = CursorLockMode.None;
+		}
+		*/
+		
+
 		if (axes == RotationAxes.MouseXAndY)
 		{
 			//Resets the average rotation
@@ -100,14 +113,9 @@ public class CameraController : MonoBehaviour {
 			transform.localRotation = originalRotation * yQuaternion;
 		}
 
-		//lock mouse cursor
-		if (Input.GetKey (KeyCode.Escape)) {
-			Screen.lockCursor = false;
-		} else {
-			Screen.lockCursor = true;
-			Cursor.visible = true;
 
-		}
+
+
 
 	}
 	void Start ()
