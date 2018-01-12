@@ -2,13 +2,15 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Ship.cs">
     <Files>
-      <File FileName="Assets\MainMenuController.cs" Line="1" Column="1" />
+      <File FileName="Assets\MainMenuController.cs" Line="23" Column="18" />
       <File FileName="Assets\StatHighlight.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Boi.cs" Line="1" Column="1" />
-      <File FileName="Assets\CameraController.cs" Line="1" Column="1" />
-      <File FileName="Assets\TunnelGenerator.cs" Line="43" Column="39" />
+      <File FileName="Assets\CameraController.cs" Line="95" Column="36" />
+      <File FileName="Assets\TunnelGenerator.cs" Line="32" Column="36" />
       <File FileName="Assets\PlayerInfoHolder.cs" Line="1" Column="1" />
-      <File FileName="Assets\Ship.cs" Line="100" Column="68" />
+      <File FileName="Assets\Ship.cs" Line="125" Column="3" />
+      <File FileName="Assets\InterfaceController.cs" Line="182" Column="22" />
+      <File FileName="Assets\TrenchRunController.cs" Line="15" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

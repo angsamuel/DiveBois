@@ -13,17 +13,19 @@ public class TunnelGenerator : MonoBehaviour {
 	public int tunnelBlockSize;
 	public GameObject ship;
 	public GameObject tunnelBlock;
+	public GameObject tunnelObstacle;
 
 	public bool tunnelActive = false;
 
 	List<GameObject> blocks;
+	List<GameObject> obstacles;
 	public int blockLimit;
 
 
 	// Use this for initialization
 	void Start () {
 		blocks = new List<GameObject> ();
-		StartCoroutine (PlaceObstacles());
+		StartCoroutine (PlaceObstacles(20f));
 		StartCoroutine (PlaceBlocks());
 	}
 	
@@ -31,13 +33,15 @@ public class TunnelGenerator : MonoBehaviour {
 	void Update () {
 		
 	}
-	IEnumerator PlaceObstacles(){
+	IEnumerator PlaceObstacles(float delay){
+		yield return new WaitForSeconds (delay);
+
 		while (true) {
 			if (tunnelActive) {
 				float shipZ = ship.transform.position.z;
 
 				Debug.Log ("placed obstacle");
-				GameObject newBlockLeft = GameObject.Instantiate (tunnelBlock, new Vector3 (Random.Range (-tunnelWidth, tunnelWidth), Random.Range (-tunnelHeight, tunnelHeight), shipZ + generationDistance), Quaternion.identity);
+				GameObject newBlockLeft = GameObject.Instantiate (tunnelObstacle, new Vector3 (Random.Range (-tunnelWidth, tunnelWidth), Random.Range (-tunnelHeight, tunnelHeight), shipZ + generationDistance), Quaternion.identity);
 				newBlockLeft.transform.localScale = new Vector3 (200, tunnelBlockSize / 1.5f, tunnelBlockSize);
 			}
 			yield return new WaitForSeconds (10);

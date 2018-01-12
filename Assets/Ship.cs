@@ -8,137 +8,76 @@ public class Ship : MonoBehaviour {
 	public float maxSpeed = 600;
 	public float speed = 0;
 
+	public float shields, maxShields = 100;
+	public float armor, maxArmor = 100;
+
 	public float sensativity = 20;
+
+
 	public TextMesh modeText;
 	public TextMesh messageText;
 	bool blinkModeActive = true;
 
 	bool canDive = false;
-
-	public Color goodColor;
-	public Color badColor;
-
-	public GameObject frontScreen, leftScreen, rightScreen, topScreen;
+	bool canTakeCollision = true;
+	bool shieldsOnline = true;
 
 	public TunnelGenerator tunnelGenerator;
+	public InterfaceController interfaceController;
 
 	// Use this for initialization
 	void Start () {
-		StartCoroutine (BlinkMode ());
-		//StartCoroutine(BlinkScreensOn ());
-		StartCoroutine(ApproachInStealth());
+		StartCoroutine (ShieldGenerator ());
 	}
+		
 
-	void Dive(){
-		blinkModeActive = false;
-		modeText.text = "[ALL SYSTEMS GO]";
-		modeText.color = goodColor;
-		StartCoroutine (FadeText (modeText));
-		StartCoroutine (TypeText (messageText, "GOOD LUCK BOI"));
-		StartCoroutine (FadeText (messageText));
-		StartCoroutine (BlinkScreensOn ());
-		tunnelGenerator.tunnelActive = true;
-		speed = minSpeed;
+	IEnumerator ShieldGenerator(){
+		while (shieldsOnline) {
 
-	}
+			if (shields < 100) {
+				shields += 1f;
+			}
+			if (shields > maxShields) {
+				shields = maxShields;
+			}
+			yield return new WaitForSeconds (1f);
 
-
-
-	IEnumerator ApproachInStealth(){
-		yield return new WaitForSeconds (5);
-		StartCoroutine (TypeText (messageText, "ARRIVED AT TARGET \n PRESS [SPACE] TO DIVE"));
-		yield return new WaitForSeconds (3);
-		canDive = true;
-	}
-
-
-	IEnumerator TypeText(TextMesh tm, string message){
-		float textDelay = 0.05f;
-		tm.text = "";
-		for (int i = 0; i < message.Length; i++) {
-			Debug.Log (message [i]);
-			yield return new WaitForSeconds (textDelay);
-			tm.text += message [i];
-		}
-	}
-
-	IEnumerator FadeText(TextMesh tm){
-		float fadeTime = 3f;
-		float t = fadeTime;
-		Color c = tm.color;
-		yield return new WaitForSeconds (2);
-
-		while (t > 0) {
-			t -= Time.deltaTime;
-			tm.color = new Color (c.r, c.g, c.b, t / fadeTime);
-			yield return null;
 		}
 	}
 
 
-	IEnumerator BlinkMode(){
-		float blinkTime = 3f;
-		float t = blinkTime;
-		Color c = modeText.color;
-			
+	void OnTriggerEnter(Collider other) {
+		Debug.Log ("COLLISION"); //put a timer on this
+		StartCoroutine(TakeCollision());
+	}
 
-		while (blinkModeActive) {
-			t -= Time.deltaTime;
-			modeText.color = new Color (c.r, c.g, c.b, t / blinkTime);
-			if (t <= .5f) {
-				t = blinkTime;
+	IEnumerator TakeCollision(){
+		if (canTakeCollision) {
+			shields = shields - 50;
+			if (shields < 0) {
+				armor = armor + shields;
+				shields = 0;
 			}
 
-			yield return null;
+			if (armor < 0) {
+				Die ();
+			}
+			canTakeCollision = false;
+			interfaceController.DamageEffect ();
+			yield return new WaitForSeconds (1);
+			canTakeCollision = true;
 		}
-	}
 
-
-	IEnumerator LiftScreenVeils(){
-		yield return new WaitForSeconds (1.5f);
-		StartCoroutine (LiftScreenVeil (frontScreen)); StartCoroutine (LiftScreenVeil (leftScreen));
-		StartCoroutine (LiftScreenVeil (rightScreen)); StartCoroutine (LiftScreenVeil (topScreen));
-	}
-
-	IEnumerator LiftScreenVeil(GameObject screen){
-		float limit = 3f;
-		float t = 0;
-		while (t < limit) {
-			t += Time.deltaTime;
-			screen.GetComponent<MeshRenderer> ().material.color = new Color (0, 0, 0, 1.0f - t/limit);
-
-			yield return null;
-		}
-		screen.SetActive (false);
-	}
-
-	IEnumerator BlinkScreensOn(){
-		yield return new WaitForSeconds (1);
-		//frontScreen.GetComponent<MeshRenderer> ().material.color = new Color(0,0,0,0f);
-		StartCoroutine (BlinkScreenOn (frontScreen)); StartCoroutine (BlinkScreenOn (leftScreen));
-	    StartCoroutine (BlinkScreenOn (rightScreen)); StartCoroutine (BlinkScreenOn (topScreen));
-		StartCoroutine(LiftScreenVeils ());
-
-	}
-
-	IEnumerator BlinkScreenOn(GameObject screen){
-		int blinks = Random.Range (10, 20);
-		for (int i = 0; i < blinks; i++) {
-			screen.GetComponent<MeshRenderer> ().material.color = new Color (0, 0, 0, Random.Range (0f, 1f));
-			yield return new WaitForSeconds (Random.Range(0.1f, 0.05f));
-		}
-		screen.GetComponent<MeshRenderer> ().material.color = new Color (0, 0, 0, 1);
 	}
 
 
 
 	// Update is called once per frame
 	void Update () {
-
-
-
 		ScanForInput ();
 	}
+
+
 
 	void ScanForInput(){
 		Vector3 shipVelocity = GetComponent<Rigidbody> ().velocity;
@@ -182,6 +121,8 @@ public class Ship : MonoBehaviour {
 			GetComponent<Rigidbody> ().velocity = new Vector3 (0, shipVelocity.y, speed);
 		}
 
+		shipVelocity = GetComponent<Rigidbody> ().velocity;
+
 
 		if (transform.position.y < -(float)tunnelGenerator.tunnelHeight * .6f && shipVelocity.y < 0) {
 			GetComponent<Rigidbody> ().velocity = new Vector3 (shipVelocity.x, 0, speed);
@@ -189,15 +130,10 @@ public class Ship : MonoBehaviour {
 			GetComponent<Rigidbody> ().velocity = new Vector3 (shipVelocity.x, 0, speed);
 		}
 
+	}
 
-
-		if (Input.GetAxisRaw ("Dive") != 0 && canDive) {
-			Dive ();
-			canDive = false;
-		}
-
-
-
-
+	void Die(){
+		speed = 1500;
+		GetComponent<Rigidbody>().angularVelocity = new Vector3(Random.Range(-100,100),Random.Range(-100,100),Random.Range(-100,100));
 	}
 }
