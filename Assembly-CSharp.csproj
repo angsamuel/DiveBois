@@ -50,6 +50,7 @@
      <Compile Include="Assets\InterfaceController.cs" />
      <Compile Include="Assets\MainMenuController.cs" />
      <Compile Include="Assets\PlayerInfoHolder.cs" />
+     <Compile Include="Assets\Scanner.cs" />
      <Compile Include="Assets\Scripts\Boi.cs" />
      <Compile Include="Assets\Ship.cs" />
      <Compile Include="Assets\StatHighlight.cs" />

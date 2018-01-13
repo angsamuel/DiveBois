@@ -25,6 +25,11 @@ public class InterfaceController : MonoBehaviour {
 	public TextMesh shieldPercentage, shieldBar;
 	public TextMesh armorPercentage, armorBar;
 
+	//Scanner
+	public GameObject scannerDot;
+	public GameObject scannerBackground;
+	public GameObject scannerRedPanel;
+
 
 
 	// Use this for initialization
@@ -33,7 +38,11 @@ public class InterfaceController : MonoBehaviour {
 		StartCoroutine (SeeColor (blackView,10f));
 		StartCoroutine (OpenBlinds ());
 		StartCoroutine(ApproachInStealth());
+
 		StartCoroutine (UpdateHealthPanel ());
+		StartCoroutine (UpdateScanner ());
+
+		//scanner scaling
 	}
 
 
@@ -55,7 +64,7 @@ public class InterfaceController : MonoBehaviour {
 			for (int i = 0; i < (ship.shields / ship.maxShields) * 10; i++) {
 				shieldBar.text += "#";
 			}
-			Debug.Log ((ship.shields / ship.maxShields) * 10);
+			//Debug.Log ((ship.shields / ship.maxShields) * 10);
 
 			armorPercentage.text = (((int)((ship.armor / ship.maxArmor) * 100)).ToString() + "%");
 			armorBar.text = "";
@@ -164,7 +173,6 @@ public class InterfaceController : MonoBehaviour {
 		float textDelay = 0.05f;
 		tm.text = "";
 		for (int i = 0; i < message.Length; i++) {
-			Debug.Log (message [i]);
 			yield return new WaitForSeconds (textDelay);
 			tm.text += message [i];
 		}
@@ -207,5 +215,59 @@ public class InterfaceController : MonoBehaviour {
 	}
 
 
+	//Scanner 
+	IEnumerator UpdateScanner(){
+		while (true) {
+			//scannerDot.transform.position = new Vector3 (Remap (ship.transform.position.x,-60f, 60, -.45f, .45f), Remap (ship.transform.position.y,-60f, 60, -.45f, .45f), scannerDot.transform.position.z);
+			//scannerDot.transform.position = new Vector3 (.45f,scannerDot.transform.position.y, scannerDot.transform.position.z);
+
+			//scannerDot.transform.position = new Vector3 (scannerDot.transform.position.x, scannerDot.transform.position.y, scannerDot.transform.position.z);
+
+			Vector3 newPos = new Vector3 (Remap (ship.transform.position.x, -60f, 60, -.45f, .45f), Remap (ship.transform.position.y, -60f, 60, -.45f, .45f), -2f);
+
+			scannerDot.transform.localPosition = newPos;
+
+			if (tunnelGenerator.obstacleQueue.Count > 0) {
+				switch (tunnelGenerator.obstacleQueue [0]) {
+				case "up":
+					scannerRedPanel.transform.localScale = new Vector3 (1f, 0.5f, 0.1f);
+					scannerRedPanel.transform.localPosition = new Vector3 (0f, 0.25f, -1.05f);
+					break;
+				case "down":
+					scannerRedPanel.transform.localScale = new Vector3 (1f, 0.5f, 0.1f);
+					scannerRedPanel.transform.localPosition = new Vector3 (0f, -0.25f, -1.05f);
+					break;
+				case "left":
+					scannerRedPanel.transform.localScale = new Vector3 (0.5f, 1f, 0.1f);
+					scannerRedPanel.transform.localPosition = new Vector3 (-0.25f, 0f, -1.05f);
+					break;
+				case "right":
+					scannerRedPanel.transform.localScale = new Vector3 (0.5f, 1f, 0.1f);
+					scannerRedPanel.transform.localPosition = new Vector3 (0.25f, 0f, -1.05f);
+					break;
+					
+				}
+			} else {
+				scannerRedPanel.transform.localScale = new Vector3 (0f, 0f, 0f);
+			}
+
+			yield return new WaitForSeconds(0.1f);
+			Debug.Log ("NEW POS: " +newPos);
+		}
+
+	}
+
+
+
+
+	public float Remap ( float value, float from1, float to1, float from2, float to2) {
+		return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+	}
+
+
+
+
 
 }
+
+
