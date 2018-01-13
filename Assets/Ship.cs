@@ -64,7 +64,7 @@ public class Ship : MonoBehaviour {
 			}
 			canTakeCollision = false;
 			interfaceController.DamageEffect ();
-			yield return new WaitForSeconds (1);
+			yield return new WaitForSeconds (.1f);
 			canTakeCollision = true;
 		}
 
@@ -80,6 +80,19 @@ public class Ship : MonoBehaviour {
 
 
 	void ScanForInput(){
+
+		if (Input.GetAxisRaw ("Engine") > 0 ) {
+			speed += 1;
+			if (speed > maxSpeed) {
+				speed = maxSpeed;
+			}
+		} else if (Input.GetAxisRaw ("Engine") < 0) {
+			speed -= 1;
+			if (speed < minSpeed) {
+				speed = minSpeed;
+			}
+		}
+
 		Vector3 shipVelocity = GetComponent<Rigidbody> ().velocity;
 
 		if (Input.GetAxisRaw ("Vertical") > 0) {
@@ -121,8 +134,8 @@ public class Ship : MonoBehaviour {
 			GetComponent<Rigidbody> ().velocity = new Vector3 (0, shipVelocity.y, speed);
 		}
 
-		shipVelocity = GetComponent<Rigidbody> ().velocity;
 
+		shipVelocity = GetComponent<Rigidbody> ().velocity;
 
 		if (transform.position.y < -(float)tunnelGenerator.tunnelHeight * .6f && shipVelocity.y < 0) {
 			GetComponent<Rigidbody> ().velocity = new Vector3 (shipVelocity.x, 0, speed);

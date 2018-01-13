@@ -30,6 +30,18 @@ public class InterfaceController : MonoBehaviour {
 	public GameObject scannerBackground;
 	public GameObject scannerRedPanel;
 
+	//Progress
+	public GameObject progressDot;
+	public GameObject progressStart;
+	public GameObject progressEnd;
+	public TextMesh timeLeftText;
+	public TextMesh distanceTraveledText;
+
+	//Engine
+	public TextMesh engineBar1, engineBar2, engineBar3;
+	public TextMesh engineText, engineTop, engineBottom;
+
+
 
 
 	// Use this for initialization
@@ -43,6 +55,8 @@ public class InterfaceController : MonoBehaviour {
 		StartCoroutine (UpdateScanner ());
 
 		//scanner scaling
+		StartCoroutine(UpdateProgressPanel());
+		StartCoroutine (UpdateEnginePanel ());
 	}
 
 
@@ -138,8 +152,8 @@ public class InterfaceController : MonoBehaviour {
 	IEnumerator ApproachInStealth(){
 		yield return new WaitForSeconds (5);
 		StartCoroutine (TypeText (messageText, "ARRIVED AT TARGET\nPRESS [SPACE] TO DIVE"));
-		yield return new WaitForSeconds (3);
-		canDive = true;
+		yield return new WaitForSeconds (3); 
+		canDive = true; 
 	}
 
 	void Dive(){
@@ -205,7 +219,7 @@ public class InterfaceController : MonoBehaviour {
 	}
 
 	IEnumerator BlinkScreenOn(GameObject screen){
-		int blinks = Random.Range (30, 30);
+		int blinks = 20;
 		for (int i = 0; i < blinks; i++) {
 			screen.GetComponent<MeshRenderer> ().material.color = new Color (0, 0, 0, Random.Range (0f, 1f));
 			yield return new WaitForSeconds (Random.Range(0.1f, 0.05f));
@@ -252,12 +266,65 @@ public class InterfaceController : MonoBehaviour {
 			}
 
 			yield return new WaitForSeconds(0.1f);
-			Debug.Log ("NEW POS: " +newPos);
 		}
 
 	}
 
 
+	//Progress
+	IEnumerator UpdateProgressPanel(){
+		while (true) {
+
+
+			float yPos =  progressStart.transform.localPosition.y;
+			if (ship.transform.position.z + tunnelGenerator.distanceTraveled < 1) {
+				yPos = progressStart.transform.localPosition.y;
+			} else {
+				 yPos = Remap (ship.transform.position.z + tunnelGenerator.distanceTraveled, 0, tunnelGenerator.tunnelLength, progressStart.transform.localPosition.y, progressEnd.transform.localPosition.y);
+			}
+
+			progressDot.transform.localPosition = new Vector3 (progressDot.transform.localPosition.x, yPos, progressDot.transform.localPosition.z);
+			float dt = tunnelGenerator.distanceTraveled + ship.transform.position.z;
+			if (dt < 1) {
+				distanceTraveledText.text = "— 0m";
+			} else {
+				distanceTraveledText.text = "— " + (dt.ToString ()) + "m";
+			}
+			yield return new WaitForSeconds (0.1f);
+		}
+	}
+
+	IEnumerator UpdateEnginePanel(){
+		while (true) {
+			float yPos = 0;
+			float xPos = 0;
+			float zPos = 0;
+
+			if (ship.speed < ship.minSpeed) {
+				xPos = engineBottom.transform.localPosition.x;
+				yPos = engineBottom.transform.localPosition.y;
+				zPos = engineBottom.transform.localPosition.z;
+			} else {
+				xPos = Remap (ship.speed, ship.minSpeed, ship.maxSpeed, engineBottom.transform.localPosition.x, engineTop.transform.localPosition.x);
+				yPos = Remap (ship.speed, ship.minSpeed, ship.maxSpeed, engineBottom.transform.localPosition.y, engineTop.transform.localPosition.y);
+				zPos = Remap (ship.speed, ship.minSpeed, ship.maxSpeed, engineBottom.transform.localPosition.z, engineTop.transform.localPosition.z);
+			}
+
+			engineText.transform.localPosition = new Vector3 (xPos, yPos, zPos);
+			if (ship.speed <= ship.minSpeed) {
+				engineText.text = "BOOSTER 0%";
+			} else {
+				engineText.text = "BOOSTER " + ((int)(((ship.speed - ship.minSpeed) / (ship.maxSpeed - ship.minSpeed)) * 100)).ToString () + " %";
+			}
+			engineBar1.text = "";engineBar2.text = "";engineBar3.text = "";
+
+			for(int i = 0; i < ((int)(((ship.speed - ship.minSpeed) / (ship.maxSpeed - ship.minSpeed)) * 10)); i++){
+				engineBar1.text += "#";engineBar2.text += "#";engineBar3.text += "#";
+			}
+
+			yield return new WaitForSeconds(0.1f);
+		}
+	}
 
 
 	public float Remap ( float value, float from1, float to1, float from2, float to2) {
