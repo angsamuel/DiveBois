@@ -82,12 +82,12 @@ public class Ship : MonoBehaviour {
 	void ScanForInput(){
 
 		if (Input.GetAxisRaw ("Engine") > 0 ) {
-			speed += 1;
+			speed += 100;
 			if (speed > maxSpeed) {
 				speed = maxSpeed;
 			}
 		} else if (Input.GetAxisRaw ("Engine") < 0) {
-			speed -= 1;
+			speed -= 100;
 			if (speed < minSpeed) {
 				speed = minSpeed;
 			}

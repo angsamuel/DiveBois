@@ -21,6 +21,11 @@ public class InterfaceController : MonoBehaviour {
 
 	float UIrate = 0.1f;
 
+	//panels
+	public GameObject healthPanel;
+	public GameObject progressPanel;
+	public GameObject scannerPanel;
+
 	//Ship Stats
 	public TextMesh shieldPercentage, shieldBar;
 	public TextMesh armorPercentage, armorBar;
@@ -33,6 +38,7 @@ public class InterfaceController : MonoBehaviour {
 	//Progress
 	public GameObject progressDot;
 	public GameObject progressStart;
+	public GameObject progressTunnel;
 	public GameObject progressEnd;
 	public TextMesh timeLeftText;
 	public TextMesh distanceTraveledText;
@@ -123,13 +129,69 @@ public class InterfaceController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		ScanForInput ();
+
+	
 
 
+	}
+
+
+	//toggles
+	bool healthOn, scannerOn, progressOn = true;
+
+	//canToggle
+	bool canToggleHealth, canToggleScanner, canToggleProgress = true;
+
+
+
+	void ScanForInput(){
 		if (Input.GetAxisRaw ("Dive") != 0 && canDive) {
 			Dive ();
 			canDive = false;
 		}
 
+		if (Input.GetAxisRaw ("ToggleHealthPanel") != 0 && canToggleHealth == true) {
+			Debug.Log ("TOGGLE");
+			if (healthOn == true) {
+				healthOn = false;
+				healthPanel.transform.localScale = new Vector3 (0, 0, 0);
+			} else {
+				healthOn = true;
+				healthPanel.transform.localScale = new Vector3 (1, 1, 1);
+			}
+			canToggleHealth = false;
+		} else if(Input.GetAxisRaw ("ToggleHealthPanel") == 0){
+			canToggleHealth = true;
+		}
+
+		if (Input.GetAxisRaw ("ToggleScannerPanel") != 0 && canToggleScanner == true) {
+			Debug.Log ("TOGGLE Scanner");
+			if (scannerOn == true) {
+				scannerOn = false;
+				scannerPanel.transform.localScale = new Vector3 (0, 0, 0);
+			} else {
+				scannerOn = true;
+				scannerPanel.transform.localScale = new Vector3 (1, 1, 1);
+			}
+			canToggleScanner = false;
+		} else if(Input.GetAxisRaw ("ToggleScannerPanel") == 0){
+			canToggleScanner = true;
+		}
+
+		if (Input.GetAxisRaw ("ToggleProgressPanel") != 0 && canToggleProgress == true) {
+			Debug.Log ("TOGGLE");
+			if (progressOn == true) {
+				progressOn = false;
+				progressPanel.transform.localScale = new Vector3 (0, 0, 0);
+			} else {
+				progressOn = true;
+				progressPanel.transform.localScale = new Vector3 (1, 1, 1);
+			}
+			canToggleProgress = false;
+		} else if(Input.GetAxisRaw ("ToggleProgressPanel") == 0){
+			canToggleProgress = true;
+		}
 	}
 
 	IEnumerator BlinkMode(){
@@ -184,7 +246,7 @@ public class InterfaceController : MonoBehaviour {
 
 
 	IEnumerator TypeText(TextMesh tm, string message){
-		float textDelay = 0.05f;
+		float textDelay = 0.025f;
 		tm.text = "";
 		for (int i = 0; i < message.Length; i++) {
 			yield return new WaitForSeconds (textDelay);
@@ -212,7 +274,7 @@ public class InterfaceController : MonoBehaviour {
 
 	IEnumerator BlinkScreensOn(){
 		//frontScreen.GetComponent<MeshRenderer> ().material.color = new Color(0,0,0,0f);
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(2f);
 		StartCoroutine (BlinkScreenOn (frontScreen)); StartCoroutine (BlinkScreenOn (leftScreen));
 		StartCoroutine (BlinkScreenOn (rightScreen)); StartCoroutine (BlinkScreenOn (topScreen));
 
@@ -273,7 +335,8 @@ public class InterfaceController : MonoBehaviour {
 
 	//Progress
 	IEnumerator UpdateProgressPanel(){
-		while (true) {
+		bool updateActive = true;
+		while (updateActive) {
 
 
 			float yPos =  progressStart.transform.localPosition.y;
@@ -286,11 +349,22 @@ public class InterfaceController : MonoBehaviour {
 			progressDot.transform.localPosition = new Vector3 (progressDot.transform.localPosition.x, yPos, progressDot.transform.localPosition.z);
 			float dt = tunnelGenerator.distanceTraveled + ship.transform.position.z;
 			if (dt < 1) {
-				distanceTraveledText.text = "— 0m";
+				distanceTraveledText.text = "— 0u";
 			} else {
-				distanceTraveledText.text = "— " + (dt.ToString ()) + "m";
+				distanceTraveledText.text = "— " + (((int)dt).ToString ()) + "u";
 			}
 			yield return new WaitForSeconds (0.1f);
+
+
+			if (ship.transform.position.z + tunnelGenerator.distanceTraveled >= tunnelGenerator.tunnelLength) {
+				updateActive = false;
+				progressDot.transform.localPosition = new Vector3 (progressDot.transform.localPosition.x, progressEnd.transform.localPosition.y, progressDot.transform.localPosition.z);
+				distanceTraveledText.text = "— " + tunnelGenerator.tunnelLength + "u";
+
+				progressEnd.GetComponent<MeshRenderer> ().material.color = goodColor;
+				progressTunnel.GetComponent<MeshRenderer> ().material.color = goodColor;
+				Material mymet = progressEnd.GetComponent<MeshRenderer> ().material;
+			}
 		}
 	}
 
