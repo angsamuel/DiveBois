@@ -55,6 +55,8 @@
      <Compile Include="Assets\Ship.cs" />
      <Compile Include="Assets\StatHighlight.cs" />
      <Compile Include="Assets\StationGenerator.cs" />
+     <Compile Include="Assets\StatsPanel.cs" />
+     <Compile Include="Assets\TraitsPanel.cs" />
      <Compile Include="Assets\TrenchRunController.cs" />
      <Compile Include="Assets\TunnelGenerator.cs" />
  <Reference Include="UnityEngine.UI">
