@@ -5,12 +5,26 @@ using UnityEngine;
 public class TraitsPanel : MonoBehaviour {
 
 	List<string> traits = new List<string>(){
-		"Goof Ball",
-		"
-
+		"Goof Ball Prodigy", 
+		"Selfish Bastard",
+		"Love Bug",
+		"Pure Enigma",
+		"Chum Buddy",
+		"Gentle Giant",
+		"Unloving",
+		"Well Connected",
+		"Unironic Cynic",
+		"Horrible Human Bean",
+		"Knight Mentality",
+		"Unabashed Coward",
 
 
 	};
+	/*
+	 * 
+	 * 
+	 * /
+
 
 	// Use this for initialization
 	void Start () {

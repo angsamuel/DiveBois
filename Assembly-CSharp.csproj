@@ -52,6 +52,7 @@
      <Compile Include="Assets\PlayerInfoHolder.cs" />
      <Compile Include="Assets\Scanner.cs" />
      <Compile Include="Assets\Scripts\Boi.cs" />
+     <Compile Include="Assets\Scripts\Traits.cs" />
      <Compile Include="Assets\Ship.cs" />
      <Compile Include="Assets\StatHighlight.cs" />
      <Compile Include="Assets\StationGenerator.cs" />

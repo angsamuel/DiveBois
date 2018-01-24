@@ -7,11 +7,12 @@
       <File FileName="Assets\Scripts\Boi.cs" Line="1" Column="1" />
       <File FileName="Assets\CameraController.cs" Line="1" Column="1" />
       <File FileName="Assets\TunnelGenerator.cs" Line="1" Column="1" />
-      <File FileName="Assets\PlayerInfoHolder.cs" Line="1" Column="1" />
+      <File FileName="Assets\PlayerInfoHolder.cs" Line="8" Column="2" />
       <File FileName="Assets\Ship.cs" Line="1" Column="1" />
       <File FileName="Assets\InterfaceController.cs" Line="1" Column="1" />
       <File FileName="Assets\StatsPanel.cs" Line="1" Column="1" />
-      <File FileName="Assets\TraitsPanel.cs" Line="11" Column="3" />
+      <File FileName="Assets\TraitsPanel.cs" Line="2" Column="34" />
+      <File FileName="Assets\Scripts\Traits.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
