@@ -6,7 +6,7 @@ public class StatsPanel : MonoBehaviour {
 	int combat = 2;int psychology = 2; int management = 2; int computers = 2; int medicine = 2; int mechanics = 2;
 	int credits = 5;
 
-    List<int> stats;
+    public List<int> stats;
 	public List<Text> statLabels;
 	public List<string> grades;
 

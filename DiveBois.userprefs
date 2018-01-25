@@ -1,18 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TraitsPanel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/HangerManager.cs">
     <Files>
-      <File FileName="Assets\MainMenuController.cs" Line="1" Column="1" />
-      <File FileName="Assets\StatHighlight.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Boi.cs" Line="1" Column="1" />
-      <File FileName="Assets\CameraController.cs" Line="1" Column="1" />
-      <File FileName="Assets\TunnelGenerator.cs" Line="1" Column="1" />
-      <File FileName="Assets\PlayerInfoHolder.cs" Line="8" Column="2" />
-      <File FileName="Assets\Ship.cs" Line="1" Column="1" />
-      <File FileName="Assets\InterfaceController.cs" Line="1" Column="1" />
-      <File FileName="Assets\StatsPanel.cs" Line="1" Column="1" />
-      <File FileName="Assets\TraitsPanel.cs" Line="2" Column="34" />
-      <File FileName="Assets\Scripts\Traits.cs" Line="1" Column="1" />
+      <File FileName="Assets/TraitsPanel.cs" Line="23" Column="1" />
+      <File FileName="Assets/MainMenuController.cs" Line="46" Column="104" />
+      <File FileName="Assets/StatsPanel.cs" Line="21" Column="3" />
+      <File FileName="Assets/SummaryPanel.cs" Line="25" Column="27" />
+      <File FileName="Assets/Scripts/Boi.cs" Line="31" Column="70" />
+      <File FileName="Assets/Resources/SaveData/Dankula/Dankula.json" Line="1" Column="1" />
+      <File FileName="Assets/Resources/SaveData/Jango/Jango.json" Line="1" Column="51" />
+      <File FileName="Assets/HangerManager.cs" Line="15" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

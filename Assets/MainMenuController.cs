@@ -2,20 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 public class MainMenuController : MonoBehaviour {
 
-	public GameObject mainPanel, namePanel, sexPanel, statsPanel;
+	public GameObject mainPanel, namePanel, sexPanel, statsPanel, summaryPanel;
 	List<GameObject> panels;
 	int panelIndex = 0;
 
 	Boi playerBoi;
 
+	public Text nameText;
+	public Text sexText;
+
 	// Use this for initialization
 	void Start () {
 		panels = new List<GameObject> ();
-		panels.Add (mainPanel); panels.Add (namePanel); panels.Add (sexPanel); panels.Add (statsPanel);
+		panels.Add (mainPanel); panels.Add (namePanel); panels.Add (sexPanel); panels.Add (statsPanel); panels.Add (summaryPanel);
 		playerBoi = new Boi ();
 	}
 	
@@ -33,8 +37,8 @@ public class MainMenuController : MonoBehaviour {
 		playerBoi.name = n;
 	}
 
-	public void SetBoiGender(char g){
-		playerBoi.gender = g;
+	public void SetBoiSex(string g){
+		playerBoi.sex = g;
 	}
 
 	public void SetBoiStats(int piloting, int combat, int psychology, int management, int computers, int medicine, int mechanics){
@@ -43,14 +47,20 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 
+	//start new game
+	public void SaveBoi(){
+		SetBoiAge (18);
+		SetBoiName (nameText.text);
+		SetBoiSex (sexText.text);
+		List<int> boiStats = statsPanel.GetComponent<StatsPanel>().stats;
+		SetBoiStats (5, boiStats [0], boiStats [1], boiStats [2], boiStats [3], boiStats [4], boiStats [5]);
+		playerBoi.Save ("Assets/Resources/SaveData/" + playerBoi.name + "/");
+	}
+
 
 	public void SetBoiTraits(){
 
 	}
-
-
-
-
 
 	public void NewGame(){
 
@@ -70,6 +80,7 @@ public class MainMenuController : MonoBehaviour {
 		} else {
 			StartNewGame ();
 		}
+		summaryPanel.GetComponent<SummaryPanel> ().UpdateSummary ();
 	}
 
 	public void ShowNamePanel(){
@@ -77,6 +88,7 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	void StartNewGame(){
-
+		Debug.Log ("NEW GAME START");
+		SaveBoi ();
 	}
 }

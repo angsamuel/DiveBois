@@ -16,14 +16,10 @@ public class TraitsPanel : MonoBehaviour {
 		"Unironic Cynic",
 		"Horrible Human Bean",
 		"Knight Mentality",
-		"Unabashed Coward",
+		"Unabashed Coward"
 
 
 	};
-	/*
-	 * 
-	 * 
-	 * /
 
 
 	// Use this for initialization

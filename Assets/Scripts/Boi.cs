@@ -10,7 +10,7 @@ using System.IO;
 public class Boi : System.Object {
 	public string name = "DEFAULT NAME";
 
-	public char gender = 'F';
+	public string sex = "X";
 
 	public int age = 16;
 
@@ -21,10 +21,16 @@ public class Boi : System.Object {
 	public Boi(){
 	}
 
-	public void Save(){
-		string filePath = "Assets/Resources/SaveData/" + name + ".json";
+	public void Save(string filePath){
+		//string filePath = "Assets/Resources/SaveData/" + name + ".json";
 		string jsonString = JsonUtility.ToJson (this);
-		System.IO.File.WriteAllText("Assets/SaveData/" + name + ".json", jsonString);
+		if(!Directory.Exists(filePath))
+		{    
+			Directory.CreateDirectory(filePath);
+		}
+		System.IO.File.WriteAllText(filePath + name + ".json", jsonString);
+
+
 	}
 }
 
