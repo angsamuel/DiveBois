@@ -49,7 +49,9 @@
      <Compile Include="Assets\CameraController.cs" />
      <Compile Include="Assets\HangerManager.cs" />
      <Compile Include="Assets\InterfaceController.cs" />
+     <Compile Include="Assets\ListButton.cs" />
      <Compile Include="Assets\MainMenuController.cs" />
+     <Compile Include="Assets\NameWizard.cs" />
      <Compile Include="Assets\PlayerInfoHolder.cs" />
      <Compile Include="Assets\Scanner.cs" />
      <Compile Include="Assets\Scripts\Boi.cs" />
@@ -62,6 +64,13 @@
      <Compile Include="Assets\TraitsPanel.cs" />
      <Compile Include="Assets\TrenchRunController.cs" />
      <Compile Include="Assets\TunnelGenerator.cs" />
+     <None Include="Assets\Resources\Words\all_names.txt" />
+     <None Include="Assets\Resources\Words\village_nouns.txt" />
+     <None Include="Assets\Resources\Words\adj.txt" />
+     <None Include="Assets\Resources\Words\male_names.txt" />
+     <None Include="Assets\Resources\Words\last_names.txt" />
+     <None Include="Assets\Resources\Words\nouns.txt" />
+     <None Include="Assets\Resources\Words\female_names.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

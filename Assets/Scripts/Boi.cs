@@ -32,6 +32,28 @@ public class Boi : System.Object {
 
 
 	}
+
+	public void GenerateStartingStats(){
+		piloting = 0;
+		List<int> traits = new List<int> ();
+		for (int i = 0; i < 6; i++) {
+			traits.Add (0);
+		}
+		int credits = 20;
+		while (credits > 0) {
+			int index = Random.Range (0, 6);
+			if (traits [index] < 5) {
+				traits [index] = traits [index] + 1;
+				credits = credits - 1;
+			}
+		}
+		combat = traits [0];
+		psychology = traits [1];
+		management = traits [2];
+		computers = traits [3];
+		medicine = traits [4];
+		mechanics = traits [5];
+	}
 }
 
 
