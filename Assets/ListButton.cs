@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ListButton : MonoBehaviour {
 	public int index;
-	public string text;
+	public Text text;
 
 	// Use this for initialization
 	void Start () {

@@ -1,17 +1,17 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/ListButton.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\HangerManager.cs">
     <Files>
-      <File FileName="Assets/TraitsPanel.cs" Line="1" Column="1" />
-      <File FileName="Assets/MainMenuController.cs" Line="1" Column="1" />
-      <File FileName="Assets/StatsPanel.cs" Line="1" Column="1" />
-      <File FileName="Assets/SummaryPanel.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Boi.cs" Line="36" Column="38" />
-      <File FileName="Assets/Resources/SaveData/Dankula/Dankula.json" Line="1" Column="1" />
-      <File FileName="Assets/Resources/SaveData/Jango/Jango.json" Line="1" Column="1" />
-      <File FileName="Assets/HangerManager.cs" Line="27" Column="18" />
-      <File FileName="Assets/NameWizard.cs" Line="11" Column="24" />
-      <File FileName="Assets/ListButton.cs" Line="11" Column="17" />
+      <File FileName="Assets\TraitsPanel.cs" Line="1" Column="1" />
+      <File FileName="Assets\MainMenuController.cs" Line="1" Column="1" />
+      <File FileName="Assets\StatsPanel.cs" Line="1" Column="1" />
+      <File FileName="Assets\SummaryPanel.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Boi.cs" Line="1" Column="1" />
+      <File FileName="Assets\Resources\SaveData\Dankula\Dankula.json" Line="1" Column="1" />
+      <File FileName="Assets\Resources\SaveData\Jango\Jango.json" Line="1" Column="1" />
+      <File FileName="Assets\HangerManager.cs" Line="37" Column="4" />
+      <File FileName="Assets\NameWizard.cs" Line="1" Column="1" />
+      <File FileName="Assets\ListButton.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

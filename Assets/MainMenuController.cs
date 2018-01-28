@@ -9,6 +9,9 @@ public class MainMenuController : MonoBehaviour {
 
 	public GameObject mainPanel, namePanel, sexPanel, statsPanel, summaryPanel;
 	List<GameObject> panels;
+
+
+
 	int panelIndex = 0;
 
 	Boi playerBoi;

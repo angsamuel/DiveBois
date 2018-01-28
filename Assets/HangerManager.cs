@@ -6,8 +6,17 @@ using UnityEngine.UI;
 public class HangerManager : MonoBehaviour {
 	public Text toolTip;
 	public NameWizard nameWizard;
+
+
+
+
 	// Use this for initialization
 	public List<Boi> applicants;
+	public GameObject applicantGrid;
+	public GameObject applicantButton;
+
+
+
 	void Start () {
 		applicants = new List<Boi> ();
 		GenerateApplicants ();
@@ -22,6 +31,10 @@ public class HangerManager : MonoBehaviour {
 		for (int i = 0; i < 10; i++) {
 			Boi newBoi = GenerateBoi ();
 			applicants.Add (newBoi);
+		}
+		for (int i = 0; i < applicants.Count; i++) {
+			GameObject newApplicantButton = Instantiate (applicantButton, applicantGrid.transform);
+			newApplicantButton.GetComponent<ListButton> ().text.text = applicants [i].name;
 		}
 	}
 		
@@ -44,8 +57,6 @@ public class HangerManager : MonoBehaviour {
 		newBoi.age = age;
 		newBoi.GenerateStartingStats ();
 
-
-		//skills
 		return newBoi;
 
 	}
