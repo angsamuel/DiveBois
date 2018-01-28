@@ -10,8 +10,6 @@ public class MainMenuController : MonoBehaviour {
 	public GameObject mainPanel, namePanel, sexPanel, statsPanel, summaryPanel;
 	List<GameObject> panels;
 
-
-
 	int panelIndex = 0;
 
 	Boi playerBoi;
@@ -58,6 +56,8 @@ public class MainMenuController : MonoBehaviour {
 		List<int> boiStats = statsPanel.GetComponent<StatsPanel>().stats;
 		SetBoiStats (5, boiStats [0], boiStats [1], boiStats [2], boiStats [3], boiStats [4], boiStats [5]);
 		playerBoi.Save ("Assets/Resources/SaveData/" + playerBoi.name + "/");
+		PlayerPrefs.SetString ("player", playerBoi.name);
+		Debug.Log ("SAVED BOI");
 	}
 
 

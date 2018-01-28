@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ListButton : MonoBehaviour {
 	public int index;
 	public Text text;
+	public bool chosen;
 
 	// Use this for initialization
 	void Start () {

@@ -29,8 +29,11 @@ public class Boi : System.Object {
 			Directory.CreateDirectory(filePath);
 		}
 		System.IO.File.WriteAllText(filePath + name + ".json", jsonString);
+	}
 
-
+	public void Load(string filePath){
+		string jsonString = File.ReadAllText (filePath);
+		Boi loadedData = JsonUtility.FromJson<Boi> (jsonString);
 	}
 
 	public void GenerateStartingStats(){
