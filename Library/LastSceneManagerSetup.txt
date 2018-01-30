@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Hanger.unity
+- path: Assets/DiveScene.unity
   isLoaded: 1
   isActive: 1

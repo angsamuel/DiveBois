@@ -51,6 +51,7 @@ public class RecruitmentManager : MonoBehaviour {
 			applicants.Add (newBoi);
 			applicantsChosen.Add (false);
 		}
+
 		for (int i = 0; i < applicants.Count; i++) {
 			GameObject newApplicantButton = Instantiate (applicantButton, applicantGrid.transform);
 			newApplicantButton.GetComponent<ListButton> ().text.text = applicants [i].name;

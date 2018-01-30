@@ -6,6 +6,9 @@ using System.IO;
 public class HangerManager : MonoBehaviour {
 	public int requisition;
 	public int modifiedRequisition;
+
+
+
 	public List<Boi> crew;
 
 
@@ -21,6 +24,7 @@ public class HangerManager : MonoBehaviour {
 		Crew crewLoader = new Crew ();
 		crewLoader = crewLoader.Load ("Assets/Resources/SaveData/" + PlayerPrefs.GetString ("player") + "/");
 		crew = crewLoader.bois;
+		Debug.Log (crew.Count);
 	}
 	
 	// Update is called once per frame
@@ -33,5 +37,6 @@ public class HangerManager : MonoBehaviour {
 			recruitmentManager.FinalConfirmation ();
 		}
 	}
+
 
 }

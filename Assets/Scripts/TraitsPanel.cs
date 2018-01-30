@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TraitsPanel : MonoBehaviour {
-
+	/*
 	List<string> traits = new List<string>(){
 		"Goof Ball Prodigy", 
 		"Selfish Bastard",
@@ -20,7 +20,7 @@ public class TraitsPanel : MonoBehaviour {
 
 
 	};
-
+*/
 
 	// Use this for initialization
 	void Start () {
