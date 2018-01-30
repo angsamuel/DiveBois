@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 using System.IO;  
 
 
@@ -9,6 +8,7 @@ using System.IO;
 
 public class Boi : System.Object {
 	public string name = "DEFAULT NAME";
+	List<string> gradeList;
 
 	public string sex = "X";
 
@@ -29,11 +29,13 @@ public class Boi : System.Object {
 			Directory.CreateDirectory(filePath);
 		}
 		System.IO.File.WriteAllText(filePath + name + ".json", jsonString);
+		Debug.Log (filePath + name + ".json");
 	}
 
-	public void Load(string filePath){
+	public Boi Load(string filePath){
 		string jsonString = File.ReadAllText (filePath);
 		Boi loadedData = JsonUtility.FromJson<Boi> (jsonString);
+		return loadedData;
 	}
 
 	public void GenerateStartingStats(){

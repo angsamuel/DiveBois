@@ -46,24 +46,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CameraController.cs" />
-     <Compile Include="Assets\HangerManager.cs" />
-     <Compile Include="Assets\InterfaceController.cs" />
-     <Compile Include="Assets\ListButton.cs" />
-     <Compile Include="Assets\MainMenuController.cs" />
-     <Compile Include="Assets\NameWizard.cs" />
-     <Compile Include="Assets\PlayerInfoHolder.cs" />
-     <Compile Include="Assets\Scanner.cs" />
      <Compile Include="Assets\Scripts\Boi.cs" />
+     <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\Crew.cs" />
+     <Compile Include="Assets\Scripts\DeploymentManager.cs" />
+     <Compile Include="Assets\Scripts\HangerManager.cs" />
+     <Compile Include="Assets\Scripts\InterfaceController.cs" />
+     <Compile Include="Assets\Scripts\ListButton.cs" />
+     <Compile Include="Assets\Scripts\MainMenuController.cs" />
+     <Compile Include="Assets\Scripts\NameWizard.cs" />
+     <Compile Include="Assets\Scripts\PlayerInfoHolder.cs" />
+     <Compile Include="Assets\Scripts\PlayerProfile.cs" />
+     <Compile Include="Assets\Scripts\RecruitmentManager.cs" />
+     <Compile Include="Assets\Scripts\Scanner.cs" />
+     <Compile Include="Assets\Scripts\Ship.cs" />
+     <Compile Include="Assets\Scripts\StatHighlight.cs" />
+     <Compile Include="Assets\Scripts\StationGenerator.cs" />
+     <Compile Include="Assets\Scripts\StatsPanel.cs" />
+     <Compile Include="Assets\Scripts\SummaryPanel.cs" />
      <Compile Include="Assets\Scripts\Traits.cs" />
-     <Compile Include="Assets\Ship.cs" />
-     <Compile Include="Assets\StatHighlight.cs" />
-     <Compile Include="Assets\StationGenerator.cs" />
-     <Compile Include="Assets\StatsPanel.cs" />
-     <Compile Include="Assets\SummaryPanel.cs" />
-     <Compile Include="Assets\TraitsPanel.cs" />
-     <Compile Include="Assets\TrenchRunController.cs" />
-     <Compile Include="Assets\TunnelGenerator.cs" />
+     <Compile Include="Assets\Scripts\TraitsPanel.cs" />
+     <Compile Include="Assets\Scripts\TrenchRunController.cs" />
+     <Compile Include="Assets\Scripts\TunnelGenerator.cs" />
      <None Include="Assets\Resources\Words\all_names.txt" />
      <None Include="Assets\Resources\Words\village_nouns.txt" />
      <None Include="Assets\Resources\Words\adj.txt" />
