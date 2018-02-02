@@ -26,8 +26,6 @@ public class CameraController : MonoBehaviour {
 	void Update ()
 	{
 
-
-
 		if (Input.GetKey (KeyCode.Escape)) {
 			//Screen.lockCursor = false;
 			Cursor.visible = true;

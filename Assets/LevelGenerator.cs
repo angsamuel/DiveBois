@@ -16,6 +16,7 @@ public class LevelGenerator : MonoBehaviour {
 	bool obstacleSpawningEnabled = true;
 
 
+
 	// Use this for initialization
 	void Start () {
 		decoratorPool = new List<GameObject> ();
@@ -47,6 +48,15 @@ public class LevelGenerator : MonoBehaviour {
 			decoratorPool.Add (tmp);
 		}
 
+		//top
+		for (int i = 0; i < numDecorationsPerWall; i++) {
+			GameObject tmp = Instantiate (wallDecorator) as GameObject;
+			tmp.transform.position = new Vector3(Random.Range(-50,50),50, Random.Range(-5000f, 5000));
+			tmp.transform.localScale = new Vector3 (tmp.transform.localScale.x, Random.Range(2, 12), tmp.transform.localScale.z);
+			tmp.transform.SetParent (transform);
+			decoratorPool.Add (tmp);
+		}
+
 		StartCoroutine (SpawnObstacles());
 
 	}
@@ -59,27 +69,43 @@ public class LevelGenerator : MonoBehaviour {
 		CorrectLevel ();
 	}
 
-	float obstacleSpawnDelay = 3;
+	float obstacleSpawnDelay = 1;
+	int obstacleMilestone = 5000;
+	int milestoneCount = 0;
 	IEnumerator SpawnObstacles(){
 		while (obstacleSpawningEnabled) {
 			yield return new WaitForSeconds (obstacleSpawnDelay);
-			GameObject tmp = GameObject.Instantiate (obstacle, new Vector3 (0, 0, diveShip.transform.position.z + 5000), Quaternion.identity);
-			int orientation = Random.Range (0, 4);
-			if (orientation == 0) {
-				tmp.transform.Translate (-50, 0, 0);
-			}
-			if (orientation == 1) {
-				tmp.transform.Translate (50, 0, 0);
-			}
-			if (orientation == 2) {
-				tmp.transform.Translate (0, -50, 0);
-			}
-			if (orientation == 3) {
-				tmp.transform.Translate (0, 50, 0);
-			}
+			if(milestoneCount < (int)(diveShip.distanceTraveled / obstacleMilestone)){
+				Debug.Log (milestoneCount + " < " + (int)(diveShip.distanceTraveled / obstacleMilestone));
+				milestoneCount = (int)(diveShip.distanceTraveled / obstacleMilestone);
 
-			obstaclePool.Add (tmp);
-			Debug.Log ("SPAWNED OBSTACLE");
+				GameObject tmp;
+
+				if (obstaclePool.Count > 0 && obstaclePool [0].GetComponent<Obstacle> ().passed) {
+					tmp = obstaclePool [0];
+					obstaclePool.RemoveAt (0);
+					tmp.transform.position = new Vector3 (0, 0, diveShip.transform.position.z + 5000);
+					tmp.GetComponent<Obstacle> ().passed = false;
+					tmp.tag = "Obstacle";
+
+				} else {
+					 tmp = GameObject.Instantiate (obstacle, new Vector3 (0, 0, diveShip.transform.position.z + 5000), Quaternion.identity);
+				}
+
+				int orientation = Random.Range (0, 4);
+				if (orientation == 0) {
+					tmp.transform.Translate (-50, 0, 0);
+				}else if (orientation == 1) {
+					tmp.transform.Translate (50, 0, 0);
+				}else if (orientation == 2) {
+					tmp.transform.Translate (0, -50, 0);
+				}else if (orientation == 3) {
+					tmp.transform.Translate (0, 50, 0);
+				}
+
+				obstaclePool.Add (tmp);
+
+			}
 		}
 
 	}
@@ -92,11 +118,10 @@ public class LevelGenerator : MonoBehaviour {
 				decoratorPool [i].transform.Translate (0, 0, -30000);
 			}
 			for (int i = 0; i < obstaclePool.Count; i++) {
+				Debug.Log ("TRANSFER");
 				obstaclePool [i].transform.Translate (0, 0, -30000);
-				if (obstaclePool [i].transform.position.z < diveShip) {
-
-				}
 			}
 		}
+			
 	}
 }

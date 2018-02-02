@@ -7,9 +7,20 @@ public class DiveShip : MonoBehaviour {
 	public float armor = 100;
 	public float shields = 100;
 
+	public float backThrusterPower;
+	public float directionalThrusterPower;
+	public float maxDirectionalSpeed;
+
 	float maxArmor;
 	float maxShields;
 
+	float currentSpeed = 50;
+	float maxSpeed = 5000;
+	float minSpeed = 1000;
+
+	public float distanceTraveled = -7000;
+
+	float pos = 0;
 	bool canTakeCollision = true;
 
 
@@ -19,13 +30,14 @@ public class DiveShip : MonoBehaviour {
 	//interface
 	public ShipIntegrityPanel shipIntegrityPanel;
 
-
+	Rigidbody rb;
 
 	// Use this for initialization
 	void Start () {
 		maxArmor = armor;
 		maxShields = shields;
-		GetComponent<Rigidbody> ().AddForce (0, 0, 50000);	
+
+		rb = GetComponent<Rigidbody> ();
 
 
 		StartCoroutine (ShieldGenerator ());
@@ -36,47 +48,101 @@ public class DiveShip : MonoBehaviour {
 		ScanForInput ();
 		shipIntegrityPanel.SetValues (shields, maxShields, armor, maxArmor);
 
+		float deltaPos = transform.position.z - pos;
+		if (Mathf.Abs (deltaPos) < 15000) {
+			distanceTraveled += Mathf.Abs (deltaPos);
+		}
+		pos = transform.position.z;
 	}
 		
 
 	void ScanForInput(){
-		if (Input.GetAxis ("Vertical") < 0) {
-			GetComponent<Rigidbody> ().AddForce (0, -50, 0);	
+
+		//directions
+		if (Input.GetAxisRaw ("Vertical") < 0) {
+			//rb.AddForce (0, -directionalThrusterPower, 0);	
+			rb.velocity = new Vector3(rb.velocity.x,-maxDirectionalSpeed,rb.velocity.z);
 		}
 
-		if (Input.GetAxis ("Vertical") > 0) {
-			GetComponent<Rigidbody> ().AddForce (0, 50, 0);	
+		if (Input.GetAxisRaw ("Vertical") > 0) {
+			//rb.AddForce (0, directionalThrusterPower, 0);	
+			rb.velocity = new Vector3(rb.velocity.x,maxDirectionalSpeed,rb.velocity.z);
 		}
 
-		if (Input.GetAxis ("Horizontal") < 0) {
-				GetComponent<Rigidbody> ().AddForce (-50, 0, 0);
+		if (Input.GetAxisRaw ("Vertical") == 0) {
+			rb.velocity = new Vector3(rb.velocity.x,0,rb.velocity.z);
 		}
-		if (Input.GetAxis ("Horizontal") > 0) {
-			if (transform.position.x < 40) {
-				GetComponent<Rigidbody> ().AddForce (50, 0, 0);
-			} else {
-				transform.position = new Vector3 (40, transform.position.y, transform.position.z);
-			}
+
+		if (Input.GetAxisRaw ("Horizontal") < 0) {
+			//rb.AddForce (-directionalThrusterPower, 0, 0);
+			rb.velocity = new Vector3(-maxDirectionalSpeed, rb.velocity.y,rb.velocity.z);
 		}
+		if (Input.GetAxisRaw ("Horizontal") > 0) {
+			//rb.AddForce (directionalThrusterPower, 0, 0);
+			rb.velocity = new Vector3(maxDirectionalSpeed, rb.velocity.y,rb.velocity.z);
+		}
+
+		if (Input.GetAxisRaw ("Horizontal") == 0) {
+			rb.velocity = new Vector3(0, rb.velocity.y,rb.velocity.z);
+		}
+
+		//booster
+		if (Input.GetAxisRaw ("Engine") > 0) {
+			currentSpeed += 10; // use IEnumerator later
+		} else if (Input.GetAxisRaw ("Engine") < 0) {
+			currentSpeed -= 10;
+		}
+
+		if (currentSpeed > maxSpeed) {
+			currentSpeed = maxSpeed;
+		} else if (currentSpeed < minSpeed) {
+			currentSpeed = minSpeed;
+		}
+
+
+
 
 		float newX = transform.position.x;
 		float newY = transform.position.y;
+
+		//correct velocity
+		rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, currentSpeed);
+
+		if (rb.velocity.x > maxDirectionalSpeed) {
+			rb.velocity = new Vector3 (maxDirectionalSpeed, rb.velocity.y, rb.velocity.z);
+		} else if (rb.velocity.x < -maxDirectionalSpeed) {
+			rb.velocity = new Vector3 (-maxDirectionalSpeed, rb.velocity.y, rb.velocity.z);
+		}
 
 
 		//correct position
 		if (transform.position.x > 40) {
 			newX = 40;
+			StartCoroutine(GrindWalls ());
 		} else if (transform.position.x < -40) {
 			newX = -40;
+			StartCoroutine(GrindWalls ());
 		}
 
 		if (transform.position.y > 40) {
 			newY = 40;
+			StartCoroutine(GrindWalls ());
 		} else if (transform.position.y < -40) {
 			newY = -40;
+			StartCoroutine(GrindWalls ());
 		}
 
 		transform.position = new Vector3 (newX, newY, transform.position.z);
+	}
+
+	bool canGrindWalls = true;
+	IEnumerator GrindWalls(){
+		if (canGrindWalls) {
+			TakeDamage (5);
+			canGrindWalls = false;
+			yield return new WaitForSeconds (.1f);
+			canGrindWalls = true;
+		}
 	}
 
 	void OnTriggerEnter(Collider other){
@@ -89,21 +155,25 @@ public class DiveShip : MonoBehaviour {
 
 	IEnumerator TakeCollision(){
 		if (canTakeCollision) {
-			shields = shields - 50;
-			if (shields < 0) {
-				armor = armor + shields;
-				shields = 0;
-			}
-
-			if (armor < 0) {
-				//Die ();
-			}
+			TakeDamage (50);
 			canTakeCollision = false;
 
 			yield return new WaitForSeconds (.1f);
 			canTakeCollision = true;
 		}
 
+	}
+
+	void TakeDamage(float damage){
+		shields = shields - damage;
+		if (shields < 0) {
+			armor = armor + shields;
+			shields = 0;
+		}
+
+		if (armor < 0) {
+			//Die ();
+		}
 	}
 
 	IEnumerator ShieldGenerator(){
