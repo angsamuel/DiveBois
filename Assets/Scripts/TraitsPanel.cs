@@ -17,8 +17,6 @@ public class TraitsPanel : MonoBehaviour {
 		"Horrible Human Bean",
 		"Knight Mentality",
 		"Unabashed Coward"
-
-
 	};
 */
 

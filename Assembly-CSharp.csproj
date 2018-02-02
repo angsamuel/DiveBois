@@ -48,10 +48,13 @@
   <ItemGroup>
      <Compile Include="Assets\BoiInfo.cs" />
      <Compile Include="Assets\CameraLookController.cs" />
+     <Compile Include="Assets\DiveShip.cs" />
+     <Compile Include="Assets\LevelGenerator.cs" />
      <Compile Include="Assets\Scripts\Boi.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\Crew.cs" />
      <Compile Include="Assets\Scripts\DeploymentManager.cs" />
+     <Compile Include="Assets\Scripts\FollowScript.cs" />
      <Compile Include="Assets\Scripts\HangerManager.cs" />
      <Compile Include="Assets\Scripts\InterfaceController.cs" />
      <Compile Include="Assets\Scripts\ListButton.cs" />
@@ -70,6 +73,8 @@
      <Compile Include="Assets\Scripts\TraitsPanel.cs" />
      <Compile Include="Assets\Scripts\TrenchRunController.cs" />
      <Compile Include="Assets\Scripts\TunnelGenerator.cs" />
+     <Compile Include="Assets\ShipIntegrityPanel.cs" />
+     <Compile Include="Assets\WallDecoration.cs" />
      <None Include="Assets\Resources\Words\all_names.txt" />
      <None Include="Assets\Resources\Words\village_nouns.txt" />
      <None Include="Assets\Resources\Words\adj.txt" />
