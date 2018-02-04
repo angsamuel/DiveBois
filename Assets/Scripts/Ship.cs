@@ -25,6 +25,7 @@ public class Ship : MonoBehaviour {
 	public TunnelGenerator tunnelGenerator;
 	public InterfaceController interfaceController;
 
+
 	// Use this for initialization
 	void Start () {
 		StartCoroutine (ShieldGenerator ());
@@ -50,6 +51,8 @@ public class Ship : MonoBehaviour {
 		Debug.Log ("COLLISION"); //put a timer on this
 		StartCoroutine(TakeCollision());
 	}
+
+
 
 	IEnumerator TakeCollision(){
 		if (canTakeCollision) {

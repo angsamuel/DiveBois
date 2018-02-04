@@ -107,6 +107,7 @@ public class LevelGenerator : MonoBehaviour {
 			yield return null;
 		}
 		diveShip.Halt ();
+
 	}
 
 	float obstacleSpawnDelay = 1;

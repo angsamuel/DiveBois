@@ -49,6 +49,7 @@
      <Compile Include="Assets\BoiInfo.cs" />
      <Compile Include="Assets\CameraLookController.cs" />
      <Compile Include="Assets\DamageEffectController.cs" />
+     <Compile Include="Assets\DialoguePanel.cs" />
      <Compile Include="Assets\DiveShip.cs" />
      <Compile Include="Assets\InitiationController.cs" />
      <Compile Include="Assets\LevelGenerator.cs" />
@@ -77,6 +78,7 @@
      <Compile Include="Assets\Scripts\TrenchRunController.cs" />
      <Compile Include="Assets\Scripts\TunnelGenerator.cs" />
      <Compile Include="Assets\ShipIntegrityPanel.cs" />
+     <Compile Include="Assets\SpeedPanel.cs" />
      <Compile Include="Assets\WallDecoration.cs" />
      <None Include="Assets\Resources\Words\all_names.txt" />
      <None Include="Assets\Resources\Words\village_nouns.txt" />

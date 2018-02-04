@@ -30,7 +30,8 @@ public class DiveShip : MonoBehaviour {
 	//interface
 	public ShipIntegrityPanel shipIntegrityPanel;
 	public DamageEffectController damageEffectController;
-
+	public SpeedPanel speedPanel;
+	public DialoguePanel dialoguePanel;
 
 	Rigidbody rb;
 
@@ -40,6 +41,7 @@ public class DiveShip : MonoBehaviour {
 		maxShields = shields;
 
 		rb = GetComponent<Rigidbody> ();
+		dialoguePanel.transform.localScale = new Vector3(0,0,0);
 
 
 		StartCoroutine (ShieldGenerator ());
@@ -49,6 +51,7 @@ public class DiveShip : MonoBehaviour {
 	void Update () {
 		ScanForInput ();
 		shipIntegrityPanel.SetValues (shields, maxShields, armor, maxArmor);
+		speedPanel.SetValues (currentSpeed, minSpeed, maxSpeed);
 
 		float deltaPos = transform.position.z - pos;
 		if (Mathf.Abs (deltaPos) < 15000) {
@@ -198,6 +201,8 @@ public class DiveShip : MonoBehaviour {
 		currentSpeed = 0;
 		rb.velocity = new Vector3(0,0,0);
 		shipActive = false;
+		dialoguePanel.transform.localScale = new Vector3(1,1,1);
+		dialoguePanel.WriteMessage ("ATTENTION! Our team has taken your power core hostage! Surrender immediately!");
 	}
 
 }
