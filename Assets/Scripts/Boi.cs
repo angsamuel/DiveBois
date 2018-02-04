@@ -8,6 +8,11 @@ using System.IO;
 
 public class Boi : System.Object {
 	public string name = "DEFAULT NAME";
+	public string callsign = "DEFAULT CALLSIGN";
+
+	public int hp = 100;
+	public int mp = 100;
+
 	List<string> gradeList;
 
 	public string sex = "X";

@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour {
+	public int levelLength;
+
 	public GameObject wallDecorator;
+	public GameObject levelExterior;
+	public GameObject generatorCore;
+
 	int numDecorationsPerWall = 500;
 
 	public GameObject obstacle;
@@ -12,6 +17,7 @@ public class LevelGenerator : MonoBehaviour {
 
 	public FollowScript tunnelFollow;
 	public DiveShip diveShip;
+	public FollowScript cullingFollow;
 
 	bool obstacleSpawningEnabled = true;
 
@@ -60,17 +66,52 @@ public class LevelGenerator : MonoBehaviour {
 		StartCoroutine (SpawnObstacles());
 
 	}
-	
+
+	bool levelStopped = false;
 	// Update is called once per frame
 	void Update () {
 		if (diveShip.transform.position.z > tunnelFollow.transform.position.z) {
 			tunnelFollow.StartFollow ();
 		}
+		if (diveShip.distanceTraveled >= levelLength && !levelStopped) {
+			StartCoroutine (EndLevelRoutine ());
+			obstacleHeadStart = -5000;
+			Destroy (levelExterior);
+			levelStopped = true;
+
+			if (diveShip.transform.position.z > 15000) {
+				diveShip.transform.Translate (0, 0, -15000);
+				for (int i = 0; i < decoratorPool.Count; i++) {
+					decoratorPool [i].transform.Translate (0, 0, -15000);
+				}
+				for (int i = 0; i < obstaclePool.Count; i++) {
+					obstaclePool [i].transform.Translate (0, 0, -15000);
+				}
+			}
+
+		}
+
 		CorrectLevel ();
+	}
+
+	IEnumerator EndLevelRoutine(){
+		while (diveShip.distanceTraveled <= levelLength + 15000) {
+			yield return null;
+		}
+		correctEnabled = false;
+		cullingFollow.enabled = false;
+		tunnelFollow.enabled = false;
+		Instantiate (generatorCore, new Vector3 (0, 0, tunnelFollow.transform.position.z + 9000), Quaternion.identity);
+		tunnelFollow.transform.Translate (0, 0, -700);
+		while(diveShip.transform.position.z < tunnelFollow.transform.position.z + 9000){
+			yield return null;
+		}
+		diveShip.Halt ();
 	}
 
 	float obstacleSpawnDelay = 1;
 	int obstacleMilestone = 5000;
+	int obstacleHeadStart = 5000;
 	int milestoneCount = 0;
 	IEnumerator SpawnObstacles(){
 		while (obstacleSpawningEnabled) {
@@ -84,12 +125,12 @@ public class LevelGenerator : MonoBehaviour {
 				if (obstaclePool.Count > 0 && obstaclePool [0].GetComponent<Obstacle> ().passed) {
 					tmp = obstaclePool [0];
 					obstaclePool.RemoveAt (0);
-					tmp.transform.position = new Vector3 (0, 0, diveShip.transform.position.z + 5000);
+					tmp.transform.position = new Vector3 (0, 0, diveShip.transform.position.z + obstacleHeadStart);
 					tmp.GetComponent<Obstacle> ().passed = false;
 					tmp.tag = "Obstacle";
 
 				} else {
-					 tmp = GameObject.Instantiate (obstacle, new Vector3 (0, 0, diveShip.transform.position.z + 5000), Quaternion.identity);
+					tmp = GameObject.Instantiate (obstacle, new Vector3 (0, 0, diveShip.transform.position.z + obstacleHeadStart), Quaternion.identity);
 				}
 
 				int orientation = Random.Range (0, 4);
@@ -110,18 +151,18 @@ public class LevelGenerator : MonoBehaviour {
 
 	}
 
-
+	bool correctEnabled = true;
 	void CorrectLevel(){ //avoid floating point errors
-		if (diveShip.transform.position.z > 15000) {
-			diveShip.transform.Translate (0, 0, -30000);
-			for (int i = 0; i < decoratorPool.Count; i++) {
-				decoratorPool [i].transform.Translate (0, 0, -30000);
-			}
-			for (int i = 0; i < obstaclePool.Count; i++) {
-				Debug.Log ("TRANSFER");
-				obstaclePool [i].transform.Translate (0, 0, -30000);
+		if (correctEnabled) {
+			if (diveShip.transform.position.z > 15000) {
+				diveShip.transform.Translate (0, 0, -30000);
+				for (int i = 0; i < decoratorPool.Count; i++) {
+					decoratorPool [i].transform.Translate (0, 0, -30000);
+				}
+				for (int i = 0; i < obstaclePool.Count; i++) {
+					obstaclePool [i].transform.Translate (0, 0, -30000);
+				}
 			}
 		}
-			
 	}
 }

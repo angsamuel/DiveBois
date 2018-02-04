@@ -72,9 +72,12 @@ public class Ship : MonoBehaviour {
 
 
 
+	bool inputEnabled = true;
 	// Update is called once per frame
 	void Update () {
-		ScanForInput ();
+		if (inputEnabled) {
+			ScanForInput ();
+		}
 	}
 
 

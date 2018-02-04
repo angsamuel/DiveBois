@@ -1,15 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CameraController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/InitiationController.cs">
     <Files>
-      <File FileName="Assets\WallDecoration.cs" Line="15" Column="3" />
-      <File FileName="Assets\LevelGenerator.cs" Line="24" Column="24" />
-      <File FileName="Assets\Scripts\RecruitmentManager.cs" Line="14" Column="2" />
-      <File FileName="Assets\Scripts\TraitsPanel.cs" Line="8" Column="24" />
-      <File FileName="Assets\Scripts\FollowScript.cs" Line="11" Column="34" />
-      <File FileName="Assets\DiveShip.cs" Line="155" Column="2" />
-      <File FileName="Assets\Obstacle.cs" Line="11" Column="2" />
-      <File FileName="Assets\Scripts\CameraController.cs" Line="22" Column="30" />
+      <File FileName="Assets/LevelGenerator.cs" Line="129" Column="11" />
+      <File FileName="Assets/InitiationController.cs" Line="56" Column="4" />
+      <File FileName="Assets/Scripts/InterfaceController.cs" Line="113" Column="1" />
+      <File FileName="Assets/Scripts/DeploymentManager.cs" Line="146" Column="26" />
+      <File FileName="Assets/DiveShip.cs" Line="54" Column="38" />
+      <File FileName="Assets/Scripts/Ship.cs" Line="152" Column="16" />
+      <File FileName="Assets/DamageEffectController.cs" Line="27" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
