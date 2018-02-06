@@ -15,7 +15,7 @@ public class RecruitmentManager : MonoBehaviour {
 
 	// Use this for initialization
 	public List<Boi> applicants;
-	List<bool> applicantsChosen;
+	public List<bool> applicantsChosen;
 	public GameObject applicantGrid;
 	public GameObject applicantButton;
 
@@ -54,7 +54,7 @@ public class RecruitmentManager : MonoBehaviour {
 
 		for (int i = 0; i < applicants.Count; i++) {
 			GameObject newApplicantButton = Instantiate (applicantButton, applicantGrid.transform);
-			newApplicantButton.GetComponent<ListButton> ().text.text = applicants [i].name;
+			newApplicantButton.GetComponent<ListButton> ().text.text = applicants [i].callsign;
 			newApplicantButton.GetComponent<ListButton> ().index = i;
 		}
 
@@ -74,6 +74,7 @@ public class RecruitmentManager : MonoBehaviour {
 			sex = "M";
 		}
 
+		newBoi.callsign = nameWizard.RandomNoun();
 		newBoi.name = name;
 		newBoi.sex = sex;
 		newBoi.age = age;
@@ -127,18 +128,7 @@ public class RecruitmentManager : MonoBehaviour {
 		myEventSystem .GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
 	}
 
-	public void FinalConfirmation(){
-		Crew crew = new Crew();
 
-		for (int i = 0; i < applicants.Count; i++) {
-
-			if (applicantsChosen [i] == true) {
-				crew.bois.Add (applicants [i]);
-			}
-		}
-		crew.Save ("Assets/Resources/SaveData/" + PlayerPrefs.GetString ("player") + "/");
-		Debug.Log ("SAVED CREW");
-	}
 }
 /*
  * 

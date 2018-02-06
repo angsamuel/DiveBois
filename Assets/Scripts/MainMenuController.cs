@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 
 public class MainMenuController : MonoBehaviour {
 
-	public GameObject mainPanel, namePanel, sexPanel, statsPanel, summaryPanel;
+	public GameObject introPanel, mainPanel, namePanel, sexPanel, statsPanel, summaryPanel;
 	List<GameObject> panels;
 
 	int panelIndex = 0;
@@ -20,7 +22,7 @@ public class MainMenuController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		panels = new List<GameObject> ();
-		panels.Add (mainPanel); panels.Add (namePanel); panels.Add (sexPanel); panels.Add (statsPanel); panels.Add (summaryPanel);
+		panels.Add (mainPanel); panels.Add (introPanel); panels.Add (namePanel); panels.Add (sexPanel); panels.Add (statsPanel); panels.Add (summaryPanel);
 		playerBoi = new Boi ();
 	}
 	
@@ -80,9 +82,9 @@ public class MainMenuController : MonoBehaviour {
 	}
 
 	public void NextPanel(){
-		HidePanels ();
 		panelIndex += 1;
 		if (panelIndex < panels.Count) {
+			HidePanels ();
 			panels [panelIndex].transform.position = new Vector3 (0, 1, 90);
 		} else {
 			StartNewGame ();
@@ -97,5 +99,8 @@ public class MainMenuController : MonoBehaviour {
 	void StartNewGame(){
 		Debug.Log ("NEW GAME START");
 		SaveBoi ();
+		SceneManager.LoadScene ("Hanger");
+		Crew newCrew = new Crew ();
+		newCrew.Save ("CREW");
 	}
 }

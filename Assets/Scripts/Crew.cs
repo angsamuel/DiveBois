@@ -11,21 +11,29 @@ public class Crew {
 		bois = new List<Boi> ();
 	}
 
-	public void Save(string filePath){
+	public void Save(string name){
 		//string filePath = "Assets/Resources/SaveData/" + name + ".json";
 		string jsonString = JsonUtility.ToJson (this);
+		string filePath = "Assets/Resources/SaveData/" + PlayerPrefs.GetString ("player") + "/";
+
 		if(!Directory.Exists(filePath))
 		{    
 			Directory.CreateDirectory(filePath);
 		}
-		System.IO.File.WriteAllText(filePath + "CREW" + ".json", jsonString);
-		Debug.Log (filePath + "CREW" + ".json");
+		System.IO.File.WriteAllText(filePath + name + ".json", jsonString);
+		Debug.Log (filePath + name + ".json");
 	}
 
-	public Crew Load(string filePath){
-		string jsonString = File.ReadAllText (filePath + "/CREW.json");
+	public Crew Load(string name){
+		string filePath = "Assets/Resources/SaveData/" + PlayerPrefs.GetString ("player") + "/";
+
+		string jsonString = File.ReadAllText (filePath + name + ".json");
 		Crew loadedData = JsonUtility.FromJson<Crew> (jsonString);
 		return loadedData;
 	}
 
 }
+
+//erika in health care administration, attention required now health information alert.
+
+//itshelpdesk.edu 

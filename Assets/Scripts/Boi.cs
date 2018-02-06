@@ -64,6 +64,10 @@ public class Boi : System.Object {
 		medicine = traits [4];
 		mechanics = traits [5];
 	}
+
+	public void TakeDamage(){
+
+	}
 }
 
 

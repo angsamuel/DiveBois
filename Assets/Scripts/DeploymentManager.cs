@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class DeploymentManager : MonoBehaviour {
 
-
 	public Text deployName, deployAge, deploySex;
 	public List<Text> gradeTexts;
 
@@ -33,16 +32,20 @@ public class DeploymentManager : MonoBehaviour {
 	public Text sliderText;
 
 	public List<Image> crewBackgrounds;
-	public List<SpriteRenderer> crewSprites;
+	public List<Image> crewSprites;
 
 	public GameObject podPicture;
 
+
 	// Use this for initialization
 	void Start () {
+	
+	}
 
+	public void Initiate(){
 		Crew crewLoader = new Crew ();
 		deploymentsChosen = new List<bool> ();
-		crewLoader = crewLoader.Load ("Assets/Resources/SaveData/" + PlayerPrefs.GetString ("player") + "/");
+		crewLoader = crewLoader.Load ("CREW");
 		crew = crewLoader.bois;
 
 		GenerateDeployments ();
@@ -123,7 +126,7 @@ public class DeploymentManager : MonoBehaviour {
 			crewSprites [i].transform.localScale = new Vector3 (0, 0, 1);
 		}
 		for (int i = 0; i < deployed; i++) {
-			crewSprites [i].transform.localScale = new Vector3 (22, 22, 1);
+			crewSprites [i].transform.localScale = new Vector3 (1.5f, 1.5f, 1);
 		}
 
 		Debug.Log (deployed);
@@ -133,7 +136,7 @@ public class DeploymentManager : MonoBehaviour {
 
 		for (int i = 0; i < crew.Count; i++) {
 			GameObject newDeployButton = Instantiate (deployButton, holdingGrid.transform);
-			newDeployButton.GetComponent<ListButton> ().text.text = crew [i].name;
+			newDeployButton.GetComponent<ListButton> ().text.text = crew [i].callsign;
 			newDeployButton.GetComponent<ListButton> ().index = i;
 			deploymentsChosen.Add (false);
 		}
@@ -155,6 +158,16 @@ public class DeploymentManager : MonoBehaviour {
 		cover.GetComponent<Rigidbody2D> ().gravityScale = 1f;
 
 		statsParent.transform.localScale = new Vector3 (0, 0, 0);
+
+		Crew missionCrew = new Crew ();
+
+		for (int i = 0; i < deploymentsChosen.Count; i++) {
+			if (deploymentsChosen [i] == true) {
+				missionCrew.bois.Add (crew [i]);
+			}
+		}
+
+		missionCrew.Save ("MISSIONCREW");
 
 	}
 
