@@ -21,7 +21,6 @@ public class LevelGenerator : MonoBehaviour {
 
 	bool obstacleSpawningEnabled = true;
 
-	float timeLeft = 120;
 
 	// Use this for initialization
 	void Start () {
@@ -64,13 +63,13 @@ public class LevelGenerator : MonoBehaviour {
 		}
 
 		StartCoroutine (SpawnObstacles());
-
+		StartCoroutine (Countdown ());
+		StartCoroutine (UpdateScanner ());
 	}
 
 	bool levelStopped = false;
 	// Update is called once per frame
 	void Update () {
-		timeLeft -= Time.deltaTime;
 		if (diveShip.transform.position.z > tunnelFollow.transform.position.z) {
 			tunnelFollow.StartFollow ();
 		}
@@ -138,12 +137,16 @@ public class LevelGenerator : MonoBehaviour {
 				int orientation = Random.Range (0, 4);
 				if (orientation == 0) {
 					tmp.transform.Translate (-50, 0, 0);
+					tmp.GetComponent<Obstacle> ().orientation = "vertleft";
 				}else if (orientation == 1) {
 					tmp.transform.Translate (50, 0, 0);
+					tmp.GetComponent<Obstacle> ().orientation = "vertright";
 				}else if (orientation == 2) {
 					tmp.transform.Translate (0, -50, 0);
+					tmp.GetComponent<Obstacle> ().orientation = "horzdown";
 				}else if (orientation == 3) {
 					tmp.transform.Translate (0, 50, 0);
+					tmp.GetComponent<Obstacle> ().orientation = "horzup";
 				}
 
 				obstaclePool.Add (tmp);
@@ -166,6 +169,41 @@ public class LevelGenerator : MonoBehaviour {
 					obstaclePool [i].transform.Translate (0, 0, -maxLoc/2);
 				}
 			}
+		}
+			
+	}
+
+	public int timeLimit = 80;
+	public TimeDisplay timeDisplay; 
+	bool countdownActive = true;
+	IEnumerator Countdown(){
+		while (countdownActive) {
+			yield return new WaitForSeconds (1);
+			timeLimit -= 1;
+			int timeToTarget = (int)((levelLength - diveShip.distanceTraveled) / diveShip.GetComponent<Rigidbody> ().velocity.z);
+
+			timeDisplay.SetValues (timeLimit, timeToTarget);
+		}
+	}
+
+	bool scannerActive = true;
+	public Scanner scanner;
+	IEnumerator UpdateScanner(){
+		while (scannerActive) {
+			yield return new WaitForSeconds (0.1f);
+			float minDistance = 1000000;
+			string minOrient = "";
+			for (int i = 0; i < obstaclePool.Count; i++) {
+				float tmpDistance = obstaclePool [i].transform.position.z - diveShip.transform.position.z;
+				if (obstaclePool [i].transform.position.z > diveShip.transform.position.z) {
+					if (tmpDistance < minDistance) {
+							minDistance = tmpDistance;
+							minOrient = obstaclePool [i].GetComponent<Obstacle> ().orientation;
+					}
+				}
+			}
+			scanner.SetValues (diveShip.transform.position, 49.0f);
+			scanner.SetBarrier (minOrient);
 		}
 	}
 }

@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\CoverPanel.cs" />
      <Compile Include="Assets\Scripts\Boi.cs" />
      <Compile Include="Assets\Scripts\BoiInfo.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
@@ -83,6 +84,7 @@
      <Compile Include="Assets\Scripts\TunnelGenerator.cs" />
      <Compile Include="Assets\Scripts\WallDecoration.cs" />
      <Compile Include="Assets\SummaryManager.cs" />
+     <Compile Include="Assets\TimeDisplay.cs" />
      <None Include="Assets\Resources\Words\all_names.txt" />
      <None Include="Assets\Resources\Words\village_nouns.txt" />
      <None Include="Assets\Resources\Words\adj.txt" />

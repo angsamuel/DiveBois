@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour {
 	public bool passed = false;
+	public string orientation;
 	// Use this for initialization
 	void Start () {
 		

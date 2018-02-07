@@ -226,5 +226,7 @@ public class DiveShip : MonoBehaviour {
 		dialoguePanel.WriteMessage ("ATTENTION! Our team has taken your power core hostage! Surrender immediately!");
 	}
 
+
+
 }
 

@@ -7,6 +7,7 @@ public class DialoguePanel : MonoBehaviour {
 	public Text nameText;
 	public Text dialogueText;
 	public GameObject portraitSprite;
+	public int wiggle =4;
 	// Use this for initialization
 	void Start () {
 
@@ -19,7 +20,7 @@ public class DialoguePanel : MonoBehaviour {
 
 	bool wiggleEnabled = false;
 	IEnumerator WigglePortrait(){
-		float direction = 4;
+		float direction = wiggle;
 		wiggleEnabled = true;
 		float delay = 0.5f;
 		while (wiggleEnabled) {
@@ -28,7 +29,7 @@ public class DialoguePanel : MonoBehaviour {
 			portraitSprite.transform.localPosition = new Vector3 (portraitSprite.transform.localPosition.x, portraitSprite.transform.localPosition.y, -1);
 			direction = -direction;
 		}
-		portraitSprite.transform.localPosition += new Vector3 (direction, 0, 0);
+		portraitSprite.transform.localPosition += new Vector3 (0, direction, 0);
 		portraitSprite.transform.localPosition = new Vector3 (portraitSprite.transform.localPosition.x, portraitSprite.transform.localPosition.y, -1);
 	}
 

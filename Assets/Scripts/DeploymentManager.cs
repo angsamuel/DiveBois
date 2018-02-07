@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class DeploymentManager : MonoBehaviour {
 
 	public Text deployName, deployAge, deploySex;
@@ -155,7 +155,7 @@ public class DeploymentManager : MonoBehaviour {
 		}
 		holdingList.transform.position = new Vector3 (1000, 1000, 1000);
 		deployList.transform.position = new Vector3 (1000, 1000, 1000);
-		cover.GetComponent<Rigidbody2D> ().gravityScale = 1f;
+		cover.GetComponent<Rigidbody2D> ().gravityScale = 5f;
 
 		statsParent.transform.localScale = new Vector3 (0, 0, 0);
 
@@ -168,8 +168,18 @@ public class DeploymentManager : MonoBehaviour {
 		}
 
 		missionCrew.Save ("MISSIONCREW");
+		StartCoroutine (LoadMissionScene ());
+
 
 	}
 
+	IEnumerator LoadMissionScene(){
+		yield return new WaitForSeconds (2);
+		SceneManager.LoadScene ("DiveScene");
+	}
+
 	//save crew, load scene
+	//csi ASO
+	//report a missing mouse 467 from the room
+	//Edi Przybyla
 }

@@ -11,6 +11,8 @@ public class Introduction : MonoBehaviour {
 	public DialoguePanel dialoguePanel;
 	public Button continueButton;
 	public Text responseText;
+
+	public bool special = true;
 	// Use this for initialization
 	void Start () {
 		
@@ -34,7 +36,9 @@ public class Introduction : MonoBehaviour {
 	}
 
 	public void EndDialogueFunction(){
-		GameObject.Find ("MainMenuController").GetComponent<MainMenuController> ().NextPanel ();
+		if (special) {
+			GameObject.Find ("MainMenuController").GetComponent<MainMenuController> ().NextPanel ();
+		}
 	}
 
 

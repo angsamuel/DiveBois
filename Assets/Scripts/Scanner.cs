@@ -1,40 +1,51 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Scanner : MonoBehaviour {
-	public Ship ship;
-	public GameObject scannerDot;
+	public Image scannerDot;
+	public Image horzup;
+	public Image horzdown;
+	public Image vertleft;
+	public Image vertright;
+
 	// Use this for initialization
 	void Start () {
+		HideObstacles ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		
 	}
 
-	IEnumerator UpdateScanner(){
-		while (true) {
-			//scannerDot.transform.position = new Vector3 (Remap (ship.transform.position.x,-60f, 60, -.45f, .45f), Remap (ship.transform.position.y,-60f, 60, -.45f, .45f), scannerDot.transform.position.z);
-			//scannerDot.transform.position = new Vector3 (.45f,scannerDot.transform.position.y, scannerDot.transform.position.z);
+	public void SetValues(Vector2 position, float levelDimensions){
+		Vector2 ne = (position * 169.0f/levelDimensions);
+		Debug.Log (ne);
+		scannerDot.rectTransform.localPosition = (position * 169.0f/levelDimensions) + new Vector2(183.5f, 183.5f);
+	}
 
-			//scannerDot.transform.position = new Vector3 (scannerDot.transform.position.x, scannerDot.transform.position.y, scannerDot.transform.position.z);
-
-			Vector3 newPos = new Vector3 (.45f, .45f, -.6f);
-
-			scannerDot.transform.localPosition = newPos;
-			yield return new WaitForSeconds(0.1f);
-			Debug.Log ("NEW POS: " +newPos);
-		}
+	void HideObstacles(){
+		horzup.rectTransform.localScale = new Vector3 (0, 0, 0);
+		vertleft.rectTransform.localScale = new Vector3 (0, 0, 0);
+		horzdown.rectTransform.localScale = new Vector3 (0, 0, 0);
+		vertright.rectTransform.localScale = new Vector3 (0, 0, 0);
 
 	}
 
-
-
-
-	public float Remap ( float value, float from1, float to1, float from2, float to2) {
-		return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+	public void SetBarrier(string direction){
+		HideObstacles ();
+		if (direction == "vertright") {
+			vertright.rectTransform.localScale = new Vector3 (1, 1, 1);
+		} else if (direction == "vertleft") {
+			vertleft.rectTransform.localScale = new Vector3 (1, 1, 1);
+		} else if (direction == "horzup") {
+			horzup.rectTransform.localScale = new Vector3 (1, 1, 1);
+		} else if (direction == "horzdown") {
+			horzdown.rectTransform.localScale = new Vector3 (1, 1, 1);
+		}
 	}
 
 

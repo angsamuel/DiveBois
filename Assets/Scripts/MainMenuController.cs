@@ -96,11 +96,16 @@ public class MainMenuController : MonoBehaviour {
 		namePanel.transform.position = new Vector2 (0, 0);
 	}
 
-	void StartNewGame(){
+	IEnumerator NewGameDelay(){
+		yield return new WaitForSeconds (2);
 		Debug.Log ("NEW GAME START");
 		SaveBoi ();
 		SceneManager.LoadScene ("Hanger");
 		Crew newCrew = new Crew ();
 		newCrew.Save ("CREW");
+	}
+
+	void StartNewGame(){
+		StartCoroutine (NewGameDelay ());
 	}
 }
