@@ -1,16 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/SummaryManager.cs">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="Assets/Scripts/RecruitmentManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/MainMenuController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/DeploymentManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/HangerManager.cs" Line="43" Column="18" />
-      <File FileName="Assets/Scripts/CrewPanel.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/DiveShip.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Scanner.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Obstacle.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ShipIntegrityPanel.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Ship.cs" Line="1" Column="1" />
-      <File FileName="Assets/SummaryManager.cs" Line="5" Column="36" />
+      <File FileName="Assets/Scripts/DiveShip.cs" Line="1" Column="1" />
+      <File FileName="Assets/TimeDisplay.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/CrewPanel.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Boi.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/DialoguePanel.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

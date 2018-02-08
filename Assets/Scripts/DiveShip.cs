@@ -6,6 +6,8 @@ public class DiveShip : MonoBehaviour {
 
 	public Boi leftBoi, rightBoi, backBoi, playerBoi;
 
+
+
 	public bool shipActive = false;
 	public float armor = 100;
 	public float shields = 100;
@@ -36,6 +38,9 @@ public class DiveShip : MonoBehaviour {
 	public SpeedPanel speedPanel;
 	public DialoguePanel dialoguePanel;
 	public CrewPanel crewPanel;
+	public Scanner scannerPanel;
+	public TimeDisplay clockPanel;
+	public SpeedPanel boosterPanel;
 
 	Rigidbody rb;
 
@@ -51,6 +56,13 @@ public class DiveShip : MonoBehaviour {
 
 
 		StartCoroutine (ShieldGenerator ());
+
+		speedPanel.gameObject.SetActive (false);
+		crewPanel.gameObject.SetActive (false);
+		scannerPanel.gameObject.SetActive (false);
+		clockPanel.gameObject.SetActive (false);
+		boosterPanel.gameObject.SetActive (false);
+		shipIntegrityPanel.gameObject.SetActive (false);
 	}
 
 	void LoadBois(){
@@ -63,6 +75,19 @@ public class DiveShip : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+
+	bool canToggleHealth = true;
+	bool canToggleScanner = true;
+	bool canToggleBooster = true;
+	bool healthMode = false;
+	bool scannerMode = false;
+	bool boosterMode = false;
+	bool clockMode = false;
+	bool canToggleClock = true;
+	bool crewMode = false;
+	bool canToggleCrew = true;
+
+
 	void Update () {
 		ScanForInput ();
 		shipIntegrityPanel.SetValues (shields, maxShields, armor, maxArmor);
@@ -75,11 +100,83 @@ public class DiveShip : MonoBehaviour {
 
 		crewPanel.SetValues (leftBoi, backBoi, rightBoi);
 		pos = transform.position.z;
+
+
+	
 	}
 		
 
 	void ScanForInput(){
+		if (Input.GetAxisRaw ("ToggleHealthPanel") != 0 && healthMode && canToggleHealth) {
+			shipIntegrityPanel.gameObject.SetActive (false);
+			canToggleHealth = false;
+			healthMode = !healthMode;
+		} else if (Input.GetAxisRaw ("ToggleHealthPanel") != 0 && !healthMode && canToggleHealth) {
+			shipIntegrityPanel.gameObject.SetActive (true);
+			canToggleHealth = false;
+			healthMode = !healthMode;
+		} else if (Input.GetAxisRaw ("ToggleHealthPanel") == 0) {
+			canToggleHealth = true;
+		}
+
+		if (Input.GetAxisRaw ("ToggleScannerPanel") != 0 && scannerMode && canToggleScanner) {
+			scannerPanel.gameObject.SetActive (false);
+			canToggleScanner = false;
+			scannerMode = !scannerMode;
+		} else if (Input.GetAxisRaw ("ToggleScannerPanel") != 0 && !scannerMode && canToggleScanner) {
+			scannerPanel.gameObject.SetActive (true);
+			canToggleScanner = false;
+			scannerMode = !scannerMode;
+		} else if (Input.GetAxisRaw ("ToggleScannerPanel") == 0) {
+			canToggleScanner = true;
+		}
+
+		if (Input.GetAxisRaw ("ToggleClockPanel") != 0 && clockMode && canToggleClock) {
+			clockPanel.gameObject.SetActive (false);
+			canToggleClock = false;
+			clockMode = !clockMode;
+		} else if (Input.GetAxisRaw ("ToggleClockPanel") != 0 && !clockMode && canToggleClock) {
+			clockPanel.gameObject.SetActive (true);
+			canToggleClock = false;
+			clockMode = !clockMode;
+		} else if (Input.GetAxisRaw ("ToggleClockPanel") == 0) {
+			canToggleClock = true;
+		}
+
+		if (Input.GetAxisRaw ("ToggleBoosterPanel") != 0 && boosterMode && canToggleBooster) {
+			boosterPanel.gameObject.SetActive (false);
+			canToggleBooster = false;
+			boosterMode = !boosterMode;
+		} else if (Input.GetAxisRaw ("ToggleBoosterPanel") != 0 && !boosterMode && canToggleBooster) {
+			boosterPanel.gameObject.SetActive (true);
+			canToggleBooster = false;
+			boosterMode = !boosterMode;
+		} else if (Input.GetAxisRaw ("ToggleBoosterPanel") == 0) {
+			canToggleBooster = true;
+		}
+
+		if (Input.GetAxisRaw ("ToggleCrewPanel") != 0 && crewMode && canToggleCrew) {
+			crewPanel.gameObject.SetActive (false);
+			canToggleCrew = false;
+			crewMode = !crewMode;
+		} else if (Input.GetAxisRaw ("ToggleCrewPanel") != 0 && !crewMode && canToggleCrew) {
+			crewPanel.gameObject.SetActive (true);
+			canToggleCrew = false;
+			crewMode = !crewMode;
+		} else if (Input.GetAxisRaw ("ToggleCrewPanel") == 0) {
+			canToggleCrew = true;
+		}
+
+
 		if (shipActive) {
+			//HUD
+
+		
+
+
+
+
+
 			//directions
 			if (Input.GetAxisRaw ("Vertical") < 0) {
 				//rb.AddForce (0, -directionalThrusterPower, 0);	

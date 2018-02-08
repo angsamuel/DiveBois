@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\CoverPanel.cs" />
+     <Compile Include="Assets\MainMenuBackground.cs" />
      <Compile Include="Assets\Scripts\Boi.cs" />
      <Compile Include="Assets\Scripts\BoiInfo.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />

@@ -23,7 +23,6 @@ public class Scanner : MonoBehaviour {
 
 	public void SetValues(Vector2 position, float levelDimensions){
 		Vector2 ne = (position * 169.0f/levelDimensions);
-		Debug.Log (ne);
 		scannerDot.rectTransform.localPosition = (position * 169.0f/levelDimensions) + new Vector2(183.5f, 183.5f);
 	}
 

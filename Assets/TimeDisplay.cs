@@ -7,6 +7,12 @@ using UnityEngine.UI;
 public class TimeDisplay : MonoBehaviour {
 	public Text timeLeft;
 	public Text timeToArrival;
+	public Text arrows;
+
+	public Color underColor;
+	public Color overColor;
+
+
 	// Use this for initialization
 	void Start () {
 		
@@ -18,6 +24,14 @@ public class TimeDisplay : MonoBehaviour {
 	}
 
 	public void SetValues(int tl, int tta){
+		if (tta < tl) {
+			timeToArrival.color = underColor;
+			arrows.color = underColor;
+		} else {
+			timeToArrival.color = overColor;
+			arrows.color = overColor;
+		}
+
 		timeLeft.text = (tl / 60).ToString () + ":";
 		if (tl % 60 < 10) {
 			timeLeft.text += "0" + (tl % 60).ToString ();

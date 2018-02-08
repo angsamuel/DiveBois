@@ -6,16 +6,20 @@ using UnityEngine.UI;
 
 public class ShipIntegrityPanel : MonoBehaviour {
 
+	bool canToggle = true;
+	bool mode = false;
+	Vector3 position;
+
 	public Text shieldsPercent, shieldsBar, armorPercent, armorBar;
 
 	// Use this for initialization
 	void Start () {
-		
+		position = transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
 	public void SetValues(float shield, float shieldMax, float armor, float armorMax){

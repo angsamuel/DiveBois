@@ -8,6 +8,7 @@ public class DialoguePanel : MonoBehaviour {
 	public Text dialogueText;
 	public GameObject portraitSprite;
 	public int wiggle =4;
+	Vector3 defaultPosition;
 	// Use this for initialization
 	void Start () {
 
@@ -15,7 +16,7 @@ public class DialoguePanel : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		defaultPosition = portraitSprite.transform.localPosition;
 	}
 
 	bool wiggleEnabled = false;
@@ -29,7 +30,7 @@ public class DialoguePanel : MonoBehaviour {
 			portraitSprite.transform.localPosition = new Vector3 (portraitSprite.transform.localPosition.x, portraitSprite.transform.localPosition.y, -1);
 			direction = -direction;
 		}
-		portraitSprite.transform.localPosition += new Vector3 (0, direction, 0);
+		portraitSprite.transform.localPosition = defaultPosition;
 		portraitSprite.transform.localPosition = new Vector3 (portraitSprite.transform.localPosition.x, portraitSprite.transform.localPosition.y, -1);
 	}
 

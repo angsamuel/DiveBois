@@ -24,6 +24,8 @@ public class Boi : System.Object {
 	public List<string> traits;
 
 	public Boi(){
+		hp = 100;
+		mp = 100;
 	}
 
 	public void Save(string filePath){
